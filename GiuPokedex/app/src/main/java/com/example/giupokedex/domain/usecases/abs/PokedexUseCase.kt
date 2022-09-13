@@ -6,11 +6,11 @@ import com.example.giupokedex.domain.models.base.StatDetail
 import com.example.giupokedex.domain.models.base.TypeDetail
 
 interface PokedexUseCase {
-    suspend fun invokePokemon(idOrName: String): Pokemon?
+    suspend fun invokePokemon(idOrName: String): Pokemon
 
-    suspend fun invokeAbilityDetail(id: String): AbilityDetail?
+    suspend fun invokeAbilityDetail(id: String): AbilityDetail
 
-    suspend fun invokeStatDetail(id: String): StatDetail?
+    suspend fun invokeStatDetail(id: String): StatDetail
 
-    suspend fun invokeTypeDetail(id: String): TypeDetail?
+    suspend fun invokeTypeDetail(id: String): TypeDetail
 }
