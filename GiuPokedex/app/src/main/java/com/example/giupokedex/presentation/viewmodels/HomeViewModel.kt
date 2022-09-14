@@ -11,7 +11,7 @@ import com.example.giupokedex.domain.models.base.TypeDetail
 import com.example.giupokedex.domain.usecases.abs.PokedexUseCase
 import kotlinx.coroutines.launch
 
-class MainViewModel(
+class HomeViewModel(
     private val pokedexUseCase: PokedexUseCase
 ) : ViewModel() {
     /** Region LiveData */

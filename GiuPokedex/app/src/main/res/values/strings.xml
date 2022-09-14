@@ -1,3 +1,12 @@
 <resources>
+    <!-- Commons -->
     <string name="app_name">GiuPokedex</string>
+    <string name="content_description_logo">Logo with the pokemon\'s pokeball symbol and with the text: "Giu Pokedex"</string>
+
+    <!-- Shared Preferences -->
+    <string name="PREF_APP_NAME">giupokedex</string>
+    <string name="PREF_SEARCH">search</string>
+    <string name="PREF_LIST_SEARCH">listSearch</string>
+    <string name="PREF_HISTORIC_SEARCH">historicSearch</string>
+    <!-- Shared Preferences -->
 </resources>
