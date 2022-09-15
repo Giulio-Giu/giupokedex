@@ -1,7 +1,7 @@
 package com.example.giupokedex.domain.models.pokeapi_co.base
 
 import android.os.Parcelable
-import com.example.giupokedex.domain.models.pokeapi_co.base.genarations.*
+import com.example.giupokedex.domain.models.pokeapi_co.base.generations.*
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

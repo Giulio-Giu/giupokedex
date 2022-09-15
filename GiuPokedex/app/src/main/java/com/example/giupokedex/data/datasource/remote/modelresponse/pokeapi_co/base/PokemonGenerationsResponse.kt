@@ -1,7 +1,7 @@
 package com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base
 
 import android.os.Parcelable
-import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.genarations.*
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.generations.*
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

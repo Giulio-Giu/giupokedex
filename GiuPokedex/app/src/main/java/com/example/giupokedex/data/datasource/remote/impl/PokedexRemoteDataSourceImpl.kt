@@ -1,10 +1,10 @@
 package com.example.giupokedex.data.datasource.remote.impl
 
 import com.example.giupokedex.data.datasource.remote.abs.PokedexRemoteDataSource
-import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.PokemonResponse
-import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.AbilityDetailResponse
-import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.StatDetailResponse
-import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.TypeDetailResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.pokemon.PokemonResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.detail.AbilityDetailResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.detail.StatDetailResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.detail.TypeDetailResponse
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_glitch.GlitchPokemonResponse
 import com.example.giupokedex.data.service.abs.PokedexApi
 import com.example.giupokedex.data.service.abs.PokedexGlitchApi

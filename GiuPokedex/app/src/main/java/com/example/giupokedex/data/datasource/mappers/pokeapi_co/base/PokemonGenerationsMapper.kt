@@ -3,7 +3,7 @@ package com.example.giupokedex.data.datasource.mappers.pokeapi_co.base
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.generations.*
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.PokemonGenerationsResponse
 import com.example.giupokedex.domain.models.pokeapi_co.base.PokemonGenerations
-import com.example.giupokedex.domain.models.pokeapi_co.base.genarations.*
+import com.example.giupokedex.domain.models.pokeapi_co.base.generations.*
 
 fun PokemonGenerationsResponse.toPokemonGenerationsDomainModel() = PokemonGenerations(
     generation_1 = generation_1?.toGeneration1DomainModel() ?: Generation1(),

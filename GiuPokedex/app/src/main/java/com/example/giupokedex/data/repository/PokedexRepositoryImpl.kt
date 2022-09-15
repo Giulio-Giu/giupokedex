@@ -1,15 +1,15 @@
 package com.example.giupokedex.data.repository
 
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toStatDetailDomainModel
-import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toTypeDetailDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.detail.toTypeDetailDomainModel
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toAbilityDetailDomainModel
 import com.example.giupokedex.data.datasource.mappers.pokeapi_glitch.toGlitchPokemonDomainModel
-import com.example.giupokedex.data.datasource.mappers.toPokemonDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.toPokemonDomainModel
 import com.example.giupokedex.data.datasource.remote.abs.PokedexRemoteDataSource
-import com.example.giupokedex.domain.models.pokeapi_co.Pokemon
-import com.example.giupokedex.domain.models.pokeapi_co.base.AbilityDetail
-import com.example.giupokedex.domain.models.pokeapi_co.base.StatDetail
-import com.example.giupokedex.domain.models.pokeapi_co.base.TypeDetail
+import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
+import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
+import com.example.giupokedex.domain.models.pokeapi_co.detail.StatDetail
+import com.example.giupokedex.domain.models.pokeapi_co.detail.TypeDetail
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
 import com.example.giupokedex.domain.repository.PokedexRepository
 
