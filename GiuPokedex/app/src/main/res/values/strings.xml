@@ -9,4 +9,15 @@
     <string name="PREF_LIST_SEARCH">listSearch</string>
     <string name="PREF_HISTORIC_SEARCH">historicSearch</string>
     <!-- Shared Preferences -->
+
+    <!-- Search -->
+    <string name="page_title">Giu Pokedex</string>
+    <string name="search_hint">Search by number or name. Ex.: bulbasaur or 1</string>
+    <string name="favorite_title">Favorite</string>
+    <string name="favorite_content_description">Favorite white icon</string>
+    <string name="search_title">Search</string>
+    <string name="search_content_description">Search white icon</string>
+    <string name="history_title">History</string>
+    <string name="history_content_description">History white icon</string>
+    <!-- Search -->
 </resources>

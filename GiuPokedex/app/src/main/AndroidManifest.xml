@@ -13,6 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiuPokedex"
         tools:targetApi="31">
+
+        <provider android:name=".common.utils.PokedexSuggestionProvider"
+            android:authorities="com.example.MySuggestionProvider" />
+
+        <activity
+            android:name=".presentation.ui.activities.HomeActivity"
+            android:exported="false"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".presentation.ui.activities.SplashActivity"
             android:exported="true">
@@ -22,9 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.ui.activities.HomeActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

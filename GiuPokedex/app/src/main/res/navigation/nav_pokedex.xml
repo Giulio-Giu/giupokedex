@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_pokedex"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.example.giupokedex.presentation.ui.fragments.HomeFragment"
+        android:label="FragmentHome"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragmentHome_to_favoriteFragment"
+            app:destination="@id/fragmentFavorite"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragmentHome_to_historyFragment"
+            app:destination="@id/fragmentHistory"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentFavorite"
+        android:name="com.example.giupokedex.presentation.ui.fragments.FavoriteFragment"
+        android:label="FragmentFavorite"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_fragmentFavorite_to_homeFragment"
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentHistory"
+        android:name="com.example.giupokedex.presentation.ui.fragments.HistoryFragment"
+        android:label="FragmentHistory"
+        tools:layout="@layout/fragment_history">
+        <action
+            android:id="@+id/action_fragmentHistory_to_homeFragment"
+            app:destination="@id/fragmentHome"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+</navigation>
