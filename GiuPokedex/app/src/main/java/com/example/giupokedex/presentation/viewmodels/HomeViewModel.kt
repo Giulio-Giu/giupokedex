@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.giupokedex.domain.models.Pokemon
-import com.example.giupokedex.domain.models.base.AbilityDetail
-import com.example.giupokedex.domain.models.base.StatDetail
-import com.example.giupokedex.domain.models.base.TypeDetail
+import com.example.giupokedex.domain.models.pokeapi_co.Pokemon
+import com.example.giupokedex.domain.models.pokeapi_co.base.AbilityDetail
+import com.example.giupokedex.domain.models.pokeapi_co.base.StatDetail
+import com.example.giupokedex.domain.models.pokeapi_co.base.TypeDetail
+import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
 import com.example.giupokedex.domain.usecases.abs.PokedexUseCase
 import kotlinx.coroutines.launch
 
@@ -18,6 +19,10 @@ class HomeViewModel(
     private val _getPokemonMutableLiveData = MutableLiveData<Pokemon>()
     val getPokemonLiveData: LiveData<Pokemon>
         get() = _getPokemonMutableLiveData
+
+    private val _getGlitchPokemonMutableLiveData = MutableLiveData<GlitchPokemon>()
+    val getGlitchPokemonLiveData: LiveData<GlitchPokemon>
+        get() = _getGlitchPokemonMutableLiveData
 
     private val _getAbilityDetailMutableLiveData = MutableLiveData<AbilityDetail>()
     val getAbilityDetailLiveData: LiveData<AbilityDetail>
@@ -37,6 +42,13 @@ class HomeViewModel(
         viewModelScope.launch {
             val pokemonResult = pokedexUseCase.invokePokemon(idOrName)
             _getPokemonMutableLiveData.postValue(pokemonResult)
+        }
+    }
+
+    fun getGlitchPokemon(idOrName: String) {
+        viewModelScope.launch {
+            val glitchPokemonResult = pokedexUseCase.invokeGlitchPokemon(idOrName)
+            _getGlitchPokemonMutableLiveData.postValue(glitchPokemonResult)
         }
     }
 

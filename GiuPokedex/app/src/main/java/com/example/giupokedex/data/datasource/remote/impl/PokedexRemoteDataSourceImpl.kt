@@ -1,21 +1,32 @@
 package com.example.giupokedex.data.datasource.remote.impl
 
 import com.example.giupokedex.data.datasource.remote.abs.PokedexRemoteDataSource
-import com.example.giupokedex.data.datasource.remote.modelresponse.PokemonResponse
-import com.example.giupokedex.data.datasource.remote.modelresponse.base.AbilityDetailResponse
-import com.example.giupokedex.data.datasource.remote.modelresponse.base.StatDetailResponse
-import com.example.giupokedex.data.datasource.remote.modelresponse.base.TypeDetailResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.PokemonResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.AbilityDetailResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.StatDetailResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.base.TypeDetailResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_glitch.GlitchPokemonResponse
 import com.example.giupokedex.data.service.abs.PokedexApi
+import com.example.giupokedex.data.service.abs.PokedexGlitchApi
 
-class PokedexRemoteDataSourceImpl (
-    private val servicePokedexApi: PokedexApi
-        ) : PokedexRemoteDataSource {
+class PokedexRemoteDataSourceImpl(
+    private val servicePokedexApi: PokedexApi,
+    private val servicePokedexGlitchApi: PokedexGlitchApi,
+) : PokedexRemoteDataSource {
 
     override suspend fun getPokemon(idOrName: String): PokemonResponse {
         return try {
             servicePokedexApi.getPokemon(idOrName)
         } catch (e: Exception) {
             PokemonResponse()
+        }
+    }
+
+    override suspend fun getGlitchPokemon(idOrName: String): GlitchPokemonResponse {
+        return try {
+            servicePokedexGlitchApi.getGlitchPokemon(idOrName)
+        } catch (e: Exception) {
+            GlitchPokemonResponse()
         }
     }
 

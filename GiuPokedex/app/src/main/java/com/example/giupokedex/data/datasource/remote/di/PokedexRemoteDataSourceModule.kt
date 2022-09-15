@@ -6,6 +6,9 @@ import org.koin.dsl.module
 
 fun getPokedexDataSourceModules() = module {
     factory<PokedexRemoteDataSource> {
-        PokedexRemoteDataSourceImpl(servicePokedexApi = get())
+        PokedexRemoteDataSourceImpl(
+            servicePokedexApi = get(),
+            servicePokedexGlitchApi = get()
+        )
     }
 }
