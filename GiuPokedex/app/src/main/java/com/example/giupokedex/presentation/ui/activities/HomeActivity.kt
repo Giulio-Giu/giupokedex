@@ -9,8 +9,10 @@ import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
 import androidx.navigation.fragment.NavHostFragment
 import com.example.giupokedex.R
 import com.example.giupokedex.common.di.DIPokedexManager
@@ -101,7 +103,7 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
                 navHostFragment,
                 HomeActivityKeys.PokedexHostNav.toString()
             )
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .setTransition(TRANSIT_FRAGMENT_FADE)
             .runOnCommit {
                 val navController = navHostFragment.navController
                 val navGraph = navController.navInflater.inflate(R.navigation.nav_pokedex)
@@ -127,21 +129,22 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
         item?.let { menuItem ->
             return when (menuItem.itemId) {
                 R.id.search -> {
-                    enableDisableIcon(R.id.search, true)
+                    Toast.makeText(this, "search clicked", Toast.LENGTH_SHORT).show()
+                    enableIcon(R.id.search)
                     onSearchRequested()
 
                     true
                 }
 
                 R.id.favorite -> {
+                    Toast.makeText(this, "favorite clicked", Toast.LENGTH_SHORT).show()
                     val checker = checkFragment(
                         HomeActivityKeys.FavoriteFragment.toString(),
                         lastFragment
                     )
 
                     if (!checker) {
-                        enableDisableIcon(R.id.favorite, true)
-                        enableDisableIcon(R.id.history, false)
+                        enableIcon(R.id.favorite)
 
                         lastFragment = HomeActivityKeys.FavoriteFragment.toString()
                         replaceFragment(R.id.fragmentFavorite)
@@ -151,14 +154,14 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
                 }
 
                 R.id.history -> {
+                    Toast.makeText(this, "history clicked", Toast.LENGTH_SHORT).show()
                     val checker = checkFragment(
                         HomeActivityKeys.HistoryFragment.toString(),
                         lastFragment
                     )
 
                     if (!checker) {
-                        enableDisableIcon(R.id.history, true)
-                        enableDisableIcon(R.id.favorite, false)
+                        enableIcon(R.id.history)
 
                         lastFragment = HomeActivityKeys.FavoriteFragment.toString()
                         replaceFragment(R.id.fragmentFavorite)
@@ -168,6 +171,7 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
                 }
 
                 else -> {
+                    Toast.makeText(this, "else menuclick", Toast.LENGTH_SHORT).show()
                     false
                 }
             }
@@ -176,32 +180,29 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
         return true
     }
 
-    private fun enableDisableIcon(iconId: Int, isEnable: Boolean) {
+    private fun enableIcon(iconId: Int) {
         //set icon enable (selected) or disable (unselected)
         when (iconId) {
             R.id.favorite -> {
-                if (isEnable) {
                     viewBinding.topAppBar.menu.findItem(iconId)
                         .setIcon(R.drawable.baseline_favorite_black_24)
-                } else {
-                    viewBinding.topAppBar.menu.findItem(iconId)
-                        .setIcon(R.drawable.baseline_favorite_white_24)
-                }
+
+                    viewBinding.topAppBar.menu.findItem(R.id.history)
+                        .setIcon(R.drawable.baseline_history_white_24)
             }
             R.id.history -> {
-                if (isEnable) {
                     viewBinding.topAppBar.menu.findItem(iconId)
                         .setIcon(R.drawable.baseline_history_black_24)
-                } else {
-                    viewBinding.topAppBar.menu.findItem(iconId)
-                        .setIcon(R.drawable.baseline_history_white_24)
-                }
+
+                    viewBinding.topAppBar.menu.findItem(R.id.favorite)
+                        .setIcon(R.drawable.baseline_favorite_white_24)
+
             }
             else -> {
-                viewBinding.topAppBar.menu.findItem(iconId)
+                viewBinding.topAppBar.menu.findItem(R.id.favorite)
                     .setIcon(R.drawable.baseline_favorite_white_24)
 
-                viewBinding.topAppBar.menu.findItem(iconId)
+                viewBinding.topAppBar.menu.findItem(R.id.history)
                     .setIcon(R.drawable.baseline_history_white_24)
             }
         }

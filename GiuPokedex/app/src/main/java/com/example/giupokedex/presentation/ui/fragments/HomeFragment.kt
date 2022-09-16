@@ -15,8 +15,6 @@ import java.util.*
 
 class HomeFragment : Fragment(), ObservableEvents, ListenerEvents, View.OnClickListener {
 
-    lateinit var contextActivity: HomeActivity
-
     private var _binding: FragmentHomeBinding? = null
     private val viewBinding get() = _binding!!
 
