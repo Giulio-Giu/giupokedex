@@ -9,7 +9,7 @@ import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
 interface PokedexUseCase {
     suspend fun invokePokemon(idOrName: String): Pokemon
 
-    suspend fun invokeGlitchPokemon(idOrName: String): GlitchPokemon
+    suspend fun invokeGlitchPokemon(idOrName: String): List<GlitchPokemon>
 
     suspend fun invokeAbilityDetail(id: String): AbilityDetail
 

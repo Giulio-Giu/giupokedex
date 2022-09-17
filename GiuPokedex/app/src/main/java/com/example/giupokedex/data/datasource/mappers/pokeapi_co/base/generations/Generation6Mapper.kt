@@ -6,7 +6,7 @@ import com.example.giupokedex.domain.models.pokeapi_co.base.PokemonVersion
 import com.example.giupokedex.domain.models.pokeapi_co.base.generations.Generation6
 
 fun Generation6Response.toGeneration6DomainModel() = Generation6(
-    omegaruby_alphasapphire = omegaruby_alphasapphire?.toPokemonVersionDomainModel()
+    omegaruby_alphasapphire = `omegaruby-alphasapphire`?.toPokemonVersionDomainModel()
         ?: PokemonVersion(),
-    x_y = x_y?.toPokemonVersionDomainModel() ?: PokemonVersion(),
+    x_y = `x-y`?.toPokemonVersionDomainModel() ?: PokemonVersion(),
 )

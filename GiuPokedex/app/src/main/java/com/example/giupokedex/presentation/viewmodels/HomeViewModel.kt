@@ -1,9 +1,8 @@
 package com.example.giupokedex.presentation.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.os.Looper
+import android.widget.Toast
+import androidx.lifecycle.*
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
 import com.example.giupokedex.domain.models.pokeapi_co.detail.StatDetail
@@ -16,13 +15,23 @@ class HomeViewModel(
     private val pokedexUseCase: PokedexUseCase
 ) : ViewModel() {
     /** Region LiveData */
-    private val _getPokemonMutableLiveData = MutableLiveData<Pokemon>()
-    val getPokemonLiveData: LiveData<Pokemon>
-        get() = _getPokemonMutableLiveData
+     val _getPokemonMutableLiveData = MutableLiveData<Pokemon>()
+//    val getPokemonLiveData: LiveData<Pokemon>
+//        get() = _getPokemonMutableLiveData
 
-    private val _getGlitchPokemonMutableLiveData = MutableLiveData<GlitchPokemon>()
-    val getGlitchPokemonLiveData: LiveData<GlitchPokemon>
-        get() = _getGlitchPokemonMutableLiveData
+     val _getGlitchPokemonMutableLiveData = MutableLiveData<GlitchPokemon>()
+//    val getGlitchPokemonLiveData: LiveData<GlitchPokemon>
+//        get() = _getGlitchPokemonMutableLiveData
+
+    val getAllPokemonDataMediatorLiveData =
+        MediatorLiveData<Pair<Pokemon?, GlitchPokemon?>>().apply {
+            addSource(_getPokemonMutableLiveData) {
+                value = Pair(it, _getGlitchPokemonMutableLiveData.value)
+            }
+            addSource(_getGlitchPokemonMutableLiveData) {
+                value = Pair(_getPokemonMutableLiveData.value, it)
+            }
+        }
 
     private val _getAbilityDetailMutableLiveData = MutableLiveData<AbilityDetail>()
     val getAbilityDetailLiveData: LiveData<AbilityDetail>
@@ -38,35 +47,47 @@ class HomeViewModel(
 
 
     /** Region serviceCalls */
-    fun getPokemon(idOrName: String) {
+    fun searchPokemon(idOrName: String) {
         viewModelScope.launch {
             val pokemonResult = pokedexUseCase.invokePokemon(idOrName)
+//            _getPokemonMutableLiveData.value = pokemonResult
             _getPokemonMutableLiveData.postValue(pokemonResult)
         }
-    }
 
-    fun getGlitchPokemon(idOrName: String) {
         viewModelScope.launch {
             val glitchPokemonResult = pokedexUseCase.invokeGlitchPokemon(idOrName)
-            _getGlitchPokemonMutableLiveData.postValue(glitchPokemonResult)
+//            _getGlitchPokemonMutableLiveData.value = glitchPokemonResult
+            try {
+                _getGlitchPokemonMutableLiveData.postValue(glitchPokemonResult[0])
+            } catch (e: Exception) {
+                _getGlitchPokemonMutableLiveData.postValue(GlitchPokemon())
+            }
         }
     }
 
-    fun getAbilityDetail(id: String) {
+    /*fun searchGlitchPokemon(idOrName: String) {
+        viewModelScope.launch {
+            val glitchPokemonResult = pokedexUseCase.invokeGlitchPokemon(idOrName)
+//            _getGlitchPokemonMutableLiveData.value = glitchPokemonResult
+            _getGlitchPokemonMutableLiveData.postValue(glitchPokemonResult[0])
+        }
+    }*/
+
+    fun searchAbilityDetail(id: String) {
         viewModelScope.launch {
             val abilityResult = pokedexUseCase.invokeAbilityDetail(id)
             _getAbilityDetailMutableLiveData.postValue(abilityResult)
         }
     }
 
-    fun getStatDetail(id: String) {
+    fun searchStatDetail(id: String) {
         viewModelScope.launch {
             val statResult = pokedexUseCase.invokeStatDetail(id)
             _getStatDetailMutableLiveData.postValue(statResult)
         }
     }
 
-    fun getTypeDetail(id: String) {
+    fun searchTypeDetail(id: String) {
         viewModelScope.launch {
             val typeResult = pokedexUseCase.invokeTypeDetail(id)
             _getTypeDetailMutableLiveData.postValue(typeResult)

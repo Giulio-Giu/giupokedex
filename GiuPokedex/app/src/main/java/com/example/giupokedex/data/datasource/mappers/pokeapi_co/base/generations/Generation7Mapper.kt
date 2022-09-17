@@ -7,5 +7,5 @@ import com.example.giupokedex.domain.models.pokeapi_co.base.generations.Generati
 
 fun Generation7Response.toGeneration7DomainModel() = Generation7(
     icons = icons?.toPokemonVersionDomainModel() ?: PokemonVersion(),
-    ultra_sun_ultra_moon = ultra_sun_ultra_moon?.toPokemonVersionDomainModel() ?: PokemonVersion(),
+    ultra_sun_ultra_moon = `ultra-sun-ultra-moon`?.toPokemonVersionDomainModel() ?: PokemonVersion(),
 )

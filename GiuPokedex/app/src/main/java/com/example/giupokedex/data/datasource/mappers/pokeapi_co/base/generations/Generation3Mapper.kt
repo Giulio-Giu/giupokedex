@@ -7,6 +7,6 @@ import com.example.giupokedex.domain.models.pokeapi_co.base.generations.Generati
 
 fun Generation3Response.toGeneration3DomainModel() = Generation3(
     emerald = emerald?.toPokemonVersionDomainModel() ?: PokemonVersion(),
-    firered_leafgreen = firered_leafgreen?.toPokemonVersionDomainModel() ?: PokemonVersion(),
-    ruby_sapphire = ruby_sapphire?.toPokemonVersionDomainModel() ?: PokemonVersion(),
+    firered_leafgreen = `firered-leafgreen`?.toPokemonVersionDomainModel() ?: PokemonVersion(),
+    ruby_sapphire = `ruby-sapphire`?.toPokemonVersionDomainModel() ?: PokemonVersion(),
 )

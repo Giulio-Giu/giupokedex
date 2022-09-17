@@ -3,8 +3,8 @@ package com.example.giupokedex.data.repository
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toStatDetailDomainModel
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.detail.toTypeDetailDomainModel
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toAbilityDetailDomainModel
-import com.example.giupokedex.data.datasource.mappers.pokeapi_glitch.toGlitchPokemonDomainModel
-import com.example.giupokedex.data.datasource.mappers.pokeapi_co.toPokemonDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.pokemon.toPokemonDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_glitch.toListGlitchPokemonDomainModel
 import com.example.giupokedex.data.datasource.remote.abs.PokedexRemoteDataSource
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
@@ -20,8 +20,8 @@ class PokedexRepositoryImpl(
         return pokedexRemoteDataSource.getPokemon(idOrName).toPokemonDomainModel()
     }
 
-    override suspend fun getGlitchPokemon(idOrName: String): GlitchPokemon {
-        return pokedexRemoteDataSource.getGlitchPokemon(idOrName).toGlitchPokemonDomainModel()
+    override suspend fun getGlitchPokemon(idOrName: String): List<GlitchPokemon> {
+        return pokedexRemoteDataSource.getGlitchPokemon(idOrName).toListGlitchPokemonDomainModel()
     }
 
     override suspend fun getAbilityDetail(id: String): AbilityDetail {

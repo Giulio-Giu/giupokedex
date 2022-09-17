@@ -7,9 +7,10 @@ import kotlinx.parcelize.Parcelize
 data class GlitchPokemonResponse(
     var number: Int? = null,
     var name: String? = null,
-    var specie: String? = null,
+    var species: String? = null,
     var description: String? = null,
     var family: GlitchPokemonFamilyResponse? = null,
+    var sprite: String? = null,
     var starter: Boolean? = null,
     var legendary: Boolean? = null,
     var mythical: Boolean? = null,

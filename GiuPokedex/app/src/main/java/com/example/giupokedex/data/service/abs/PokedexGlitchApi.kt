@@ -8,5 +8,5 @@ interface PokedexGlitchApi {
     @GET("pokemon/{idOrName}")
     suspend fun getGlitchPokemon(
         @Path("idOrName") idOrName: String,
-    ): GlitchPokemonResponse
+    ): List<GlitchPokemonResponse>
 }

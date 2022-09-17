@@ -4,15 +4,24 @@ import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_glitc
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemonFamily
 
+fun List<GlitchPokemonResponse>.toListGlitchPokemonDomainModel() = mapNotNull {
+    try {
+        it.toGlitchPokemonDomainModel()
+    } catch (e: Exception) {
+        GlitchPokemon()
+    }
+}
+
 fun GlitchPokemonResponse.toGlitchPokemonDomainModel() = GlitchPokemon(
-    number = number ?: 1,
+    number = number ?: 0,
     name = name.orEmpty(),
-    specie = name.orEmpty(),
-    description = name.orEmpty(),
+    species = species.orEmpty(),
+    description = description.orEmpty(),
     family = family?.toGlitchPokemonFamilyDomainModel() ?: GlitchPokemonFamily(),
-    starter = starter ?: false,
-    legendary = legendary ?: false,
-    mythical = mythical ?: false,
-    ultraBeast = ultraBeast ?: false,
-    mega = mega ?: false,
+    image = sprite.orEmpty(),
+    is_starter = starter ?: false,
+    is_legendary = legendary ?: false,
+    is_mythical = mythical ?: false,
+    is_ultraBeast = ultraBeast ?: false,
+    is_mega = mega ?: false,
 )

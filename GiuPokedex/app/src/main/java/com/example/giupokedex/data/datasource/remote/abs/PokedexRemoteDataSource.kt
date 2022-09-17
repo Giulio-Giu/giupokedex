@@ -8,7 +8,7 @@ import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_glitc
 
 interface PokedexRemoteDataSource {
     suspend fun getPokemon(idOrName: String) : PokemonResponse
-    suspend fun getGlitchPokemon(idOrName: String) : GlitchPokemonResponse
+    suspend fun getGlitchPokemon(idOrName: String) : List<GlitchPokemonResponse>
     suspend fun getAbilityDetail(id: String) : AbilityDetailResponse
     suspend fun getStatDetail(id: String) : StatDetailResponse
     suspend fun getTypeDetail(id: String) : TypeDetailResponse

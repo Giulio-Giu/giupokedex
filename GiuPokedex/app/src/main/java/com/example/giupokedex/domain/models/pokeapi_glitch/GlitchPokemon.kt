@@ -5,14 +5,15 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GlitchPokemon(
-    var number: Int = 1,
+    var number: Int = 0,
     var name: String = "",
-    var specie: String = "",
+    var species: String = "",
     var description: String = "",
     var family: GlitchPokemonFamily = GlitchPokemonFamily(),
-    var starter: Boolean = false,
-    var legendary: Boolean = false,
-    var mythical: Boolean = false,
-    var ultraBeast: Boolean = false,
-    var mega: Boolean = false,
+    var image: String = "",
+    var is_starter: Boolean = false,
+    var is_legendary: Boolean = false,
+    var is_mythical: Boolean = false,
+    var is_ultraBeast: Boolean = false,
+    var is_mega: Boolean = false,
 ) : Parcelable

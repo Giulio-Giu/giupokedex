@@ -14,5 +14,5 @@ fun PokemonSpritesResponse.toPokemonSpritesDomainModel() = PokemonSprites(
     front_female = front_female.orEmpty(),
     front_shiny = front_shiny.orEmpty(),
     front_shiny_female = front_shiny_female.orEmpty(),
-    generations = generations?.toPokemonGenerationsDomainModel() ?: PokemonGenerations(),
+    generations = versions?.toPokemonGenerationsDomainModel() ?: PokemonGenerations(),
 )

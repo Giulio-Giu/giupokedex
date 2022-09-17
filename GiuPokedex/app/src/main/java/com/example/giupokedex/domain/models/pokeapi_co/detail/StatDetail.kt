@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class StatDetail(
-    var id: Int = 1,
+    var id: Int = 0,
     var name: String = "",
 ) : Parcelable

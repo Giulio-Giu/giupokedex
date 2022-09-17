@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AbilityDetail(
-    var id: Int = 1,
+    var id: Int = 0,
     var name: String = "",
     var effect_entries: List<AbilityEffect> = emptyList(),
 ) : Parcelable

@@ -12,7 +12,7 @@
 
     <!-- Search -->
     <string name="page_title">Giu Pokedex</string>
-    <string name="search_hint">Search by number or name. Ex.: bulbasaur or 1</string>
+    <string name="search_hint">Number or name. Ex.: bulbasaur or 1</string>
     <string name="favorite_title">Favorite</string>
     <string name="favorite_content_description">Favorite white icon</string>
     <string name="search_title">Search</string>
@@ -20,4 +20,41 @@
     <string name="history_title">History</string>
     <string name="history_content_description">History white icon</string>
     <!-- Search -->
+
+    <!-- Fragment Home -->
+    <string name="height_title">Height:</string>
+    <string name="weight_title">Weight:</string>
+    <string name="type_title">Types</string>
+    <string name="pictures_title">Pictures</string>
+    <string name="ability_title">Abilities</string>
+    <string name="specie_title">Specie:</string>
+
+    <string name="stats_title">Stats</string>
+    <string name="stats_hp_title">HP</string>
+    <string name="stats_attack_title">Attack</string>
+    <string name="stats_defense_title">Defense</string>
+    <string name="stats_special_attack_title">Special Attack</string>
+    <string name="stats_special_defense_title">Special Defense</string>
+    <string name="stats_speed_title">Speed</string>
+    <string name="stats_exp_title">EXP</string>
+    <string name="pokemon_starter">STARTER</string>
+    <string name="pokemon_legendary">LEGENDARY</string>
+    <string name="pokemon_mythical">MYTHICAL</string>
+    <string name="pokemon_ultra_beast">ULTRA BEAST</string>
+    <string name="pokemon_mega">MEGA</string>
+    
+    <string name="no_data_message">Oops, your search yielded no result</string>
+
+    <!-- Stats Max values -->
+    <integer name="stats_max_hp">200</integer>
+    <integer name="stats_max_attack">200</integer>
+    <integer name="stats_max_defense">200</integer>
+    <integer name="stats_max_special_attack">200</integer>
+    <integer name="stats_max_special_defense">200</integer>
+    <integer name="stats_max_speed">200</integer>
+    <integer name="stats_max_exp">1000</integer>
+    <!-- Stats Max values -->
+    <!-- Fragment Home -->
+
+    
 </resources>

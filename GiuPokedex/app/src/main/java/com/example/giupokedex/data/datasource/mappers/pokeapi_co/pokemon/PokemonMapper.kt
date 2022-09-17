@@ -1,6 +1,5 @@
-package com.example.giupokedex.data.datasource.mappers.pokeapi_co
+package com.example.giupokedex.data.datasource.mappers.pokeapi_co.pokemon
 
-import com.example.giupokedex.data.datasource.mappers.pokeapi_co.pokemon.toListPokemonTypesDomainModel
 import com.example.giupokedex.data.datasource.mappers.toListPokemonAbilitiesDomainModel
 import com.example.giupokedex.data.datasource.mappers.toListPokemonStatsDomainModel
 import com.example.giupokedex.data.datasource.mappers.toPokemonSpritesDomainModel
@@ -13,8 +12,9 @@ fun PokemonResponse.toPokemonDomainModel() = Pokemon(
     name = name.orEmpty(),
     height = height ?: 0,
     weight = weight ?: 0,
+    expStat = base_experience ?: 0,
     sprites = sprites?.toPokemonSpritesDomainModel() ?: PokemonSprites(),
     abilities = abilities?.toListPokemonAbilitiesDomainModel().orEmpty(),
     stats = stats?.toListPokemonStatsDomainModel().orEmpty(),
-    pokemonTypes = pokemonTypes?.toListPokemonTypesDomainModel().orEmpty(),
+    pokemonTypes = types?.toListPokemonTypesDomainModel().orEmpty(),
 )

@@ -22,11 +22,11 @@ class PokedexRemoteDataSourceImpl(
         }
     }
 
-    override suspend fun getGlitchPokemon(idOrName: String): GlitchPokemonResponse {
+    override suspend fun getGlitchPokemon(idOrName: String): List<GlitchPokemonResponse> {
         return try {
             servicePokedexGlitchApi.getGlitchPokemon(idOrName)
         } catch (e: Exception) {
-            GlitchPokemonResponse()
+            emptyList()
         }
     }
 

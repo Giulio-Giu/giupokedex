@@ -15,7 +15,7 @@ class PokedexUseCaseImpl(
         return pokedexRepository.getPokemonCo(idOrName)
     }
 
-    override suspend fun invokeGlitchPokemon(idOrName: String): GlitchPokemon {
+    override suspend fun invokeGlitchPokemon(idOrName: String): List<GlitchPokemon> {
         return pokedexRepository.getGlitchPokemon(idOrName)
     }
 

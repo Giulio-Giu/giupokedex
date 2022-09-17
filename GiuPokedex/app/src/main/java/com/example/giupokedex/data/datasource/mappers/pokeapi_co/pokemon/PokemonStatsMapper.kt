@@ -14,6 +14,6 @@ fun List<PokemonStatsResponse>.toListPokemonStatsDomainModel() = mapNotNull {
 }
 
 fun PokemonStatsResponse.toPokemonStatsDomainModel() = PokemonStats(
-    baseValue = baseValue ?: 0,
+    baseValue = base_stat ?: 0,
     stat = stat?.toStatDetailDomainModel() ?: StatDetail()
 )

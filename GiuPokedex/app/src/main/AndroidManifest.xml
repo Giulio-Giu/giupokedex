@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.giupokedex">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,8 +16,9 @@
         android:theme="@style/Theme.GiuPokedex"
         tools:targetApi="31">
 
-        <provider android:name=".common.utils.PokedexSuggestionProvider"
-            android:authorities="com.example.MySuggestionProvider" />
+        <provider
+            android:name=".common.utils.PokedexSuggestionProvider"
+            android:authorities="com.example.PokedexSuggestionProvider" />
 
         <activity
             android:name=".presentation.ui.activities.HomeActivity"
