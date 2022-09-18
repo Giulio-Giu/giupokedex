@@ -8,11 +8,25 @@ import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.de
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_glitch.GlitchPokemonResponse
 import com.example.giupokedex.data.service.abs.PokedexApi
 import com.example.giupokedex.data.service.abs.PokedexGlitchApi
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.ListPokemonResponse
 
 class PokedexRemoteDataSourceImpl(
     private val servicePokedexApi: PokedexApi,
     private val servicePokedexGlitchApi: PokedexGlitchApi,
 ) : PokedexRemoteDataSource {
+
+    companion object {
+        private const val PAGING_SIZE = 20
+    }
+
+    override suspend fun getPokemonList(page: Int, offset: Int): ListPokemonResponse {
+        return try {
+            servicePokedexApi.getPokemonList(limit = offset, offset = page * offset)
+//            servicePokedexApi.getPokemonList(limit = PAGING_SIZE, offset = page * PAGING_SIZE)
+        } catch (e: Exception) {
+            ListPokemonResponse()
+        }
+    }
 
     override suspend fun getPokemon(idOrName: String): PokemonResponse {
         return try {

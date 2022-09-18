@@ -41,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
+                android:isScrollContainer="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,33 +74,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!-- <androidx.fragment.app.FragmentContainerView
-         android:id="@+id/pokedex_nav_host"
-         android:name="androidx.navigation.fragment.NavHostFragment"
-         android:layout_width="0dp"
-         android:layout_height="0dp"
-         app:defaultNavHost="true"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintLeft_toLeftOf="parent"
-         app:layout_constraintRight_toRightOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/coordinator"
-         app:navGraph="@navigation/nav_pokedex" />
-
-     <com.google.android.material.progressindicator.CircularProgressIndicator
-         android:id="@+id/progress_bar"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_centerInParent="true"
-         android:indeterminate="true"
-         android:visibility="gone"
-         app:indicatorColor="@color/purple_500"
-         app:indicatorSize="50dp"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toTopOf="parent" />
-
- </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

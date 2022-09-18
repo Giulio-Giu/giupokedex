@@ -1,29 +1,30 @@
 package com.example.giupokedex.presentation.viewmodels
 
-import android.os.Looper
-import android.widget.Toast
+import android.app.Application
 import androidx.lifecycle.*
-import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
+import com.example.giupokedex.R
+import com.example.giupokedex.domain.models.pokeapi_co.ListPokemon
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
 import com.example.giupokedex.domain.models.pokeapi_co.detail.StatDetail
 import com.example.giupokedex.domain.models.pokeapi_co.detail.TypeDetail
+import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
 import com.example.giupokedex.domain.usecases.abs.PokedexUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val pokedexUseCase: PokedexUseCase
+    private val pokedexUseCase: PokedexUseCase,
+    private val application: Application
 ) : ViewModel() {
     /** Region LiveData */
-     val _getPokemonMutableLiveData = MutableLiveData<Pokemon>()
-//    val getPokemonLiveData: LiveData<Pokemon>
-//        get() = _getPokemonMutableLiveData
+    private val _getListPokemonMutableLiveData = MutableLiveData<ListPokemon>()
+    val getListPokemonLiveData: LiveData<ListPokemon>
+        get() = _getListPokemonMutableLiveData
 
-     val _getGlitchPokemonMutableLiveData = MutableLiveData<GlitchPokemon>()
-//    val getGlitchPokemonLiveData: LiveData<GlitchPokemon>
-//        get() = _getGlitchPokemonMutableLiveData
+    private val _getPokemonMutableLiveData = MutableLiveData<Pokemon>()
+    private val _getGlitchPokemonMutableLiveData = MutableLiveData<GlitchPokemon>()
 
-    val getAllPokemonDataMediatorLiveData =
+    val getFullPokemonDataMediatorLiveData =
         MediatorLiveData<Pair<Pokemon?, GlitchPokemon?>>().apply {
             addSource(_getPokemonMutableLiveData) {
                 value = Pair(it, _getGlitchPokemonMutableLiveData.value)
@@ -45,8 +46,17 @@ class HomeViewModel(
     val getTypeDetailLiveData: LiveData<TypeDetail>
         get() = _getTypeDetailMutableLiveData
 
-
     /** Region serviceCalls */
+    fun getListPokemon(page: Int) {
+        viewModelScope.launch {
+            val homePokemonList = pokedexUseCase.invokeListPokemon(
+                page,
+                application.resources.getInteger(R.integer.PAGING_SIZE)
+            )
+            _getListPokemonMutableLiveData.postValue(homePokemonList)
+        }
+    }
+
     fun searchPokemon(idOrName: String) {
         viewModelScope.launch {
             val pokemonResult = pokedexUseCase.invokePokemon(idOrName)
@@ -56,7 +66,7 @@ class HomeViewModel(
 
         viewModelScope.launch {
             val glitchPokemonResult = pokedexUseCase.invokeGlitchPokemon(idOrName)
-//            _getGlitchPokemonMutableLiveData.value = glitchPokemonResult
+
             try {
                 _getGlitchPokemonMutableLiveData.postValue(glitchPokemonResult[0])
             } catch (e: Exception) {

@@ -16,11 +16,14 @@ import com.example.giupokedex.common.di.DIPokedexManager
 import com.example.giupokedex.common.keys.HomeActivityKeys
 import com.example.giupokedex.common.utils.GiuPokedexUtils
 import com.example.giupokedex.common.utils.GiuPokedexUtils.enableDisableView
+import com.example.giupokedex.common.utils.GiuPokedexUtils.hide
+import com.example.giupokedex.common.utils.GiuPokedexUtils.show
 import com.example.giupokedex.common.utils.ListenerEvents
 import com.example.giupokedex.common.utils.PokedexSuggestionProvider
 import com.example.giupokedex.databinding.ActivityHomeBinding
 import com.example.giupokedex.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClickListener,
     SearchManager.OnDismissListener {
@@ -68,16 +71,24 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
     }
 
     override fun initListeners() {
-        showHideTopBarBackButton(false)
+//        showHideTopBarBackButton(false)
+        viewBinding.topAppBar.navigationIcon?.setVisible(false, true)
+        viewBinding.topAppBar.setNavigationOnClickListener {
+            if (lastFragment != HomeActivityKeys.HomeFragment.toString()) {
+                viewBinding.topAppBar.navigationIcon = null
+            } else {
+                viewBinding.topAppBar.setNavigationIcon(R.drawable.baseline_arrow_back_ios_white_24)
+            }
+        }
         viewBinding.topAppBar.setOnMenuItemClickListener(this)
 
-        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.fragmentHistory || destination.id == R.id.fragmentFavorite) {
+/*        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+            if ( destination.id == R.id.fragmentFavorite) {
                 showHideTopBarBackButton(true)
             } else {
                 showHideTopBarBackButton(false)
             }
-        }
+        }*/
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -95,13 +106,15 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
         }
     }
 
-    fun addQueryToRecentListAndSearch(query: String) {
+    private fun addQueryToRecentListAndSearch(query: String) {
         //add the query to the recent query list
+        val queryLower = query.lowercase(Locale.getDefault())
+
         SearchRecentSuggestions(
             this,
             PokedexSuggestionProvider.AUTHORITY,
             PokedexSuggestionProvider.MODE
-        ).saveRecentQuery(query, null)
+        ).saveRecentQuery(queryLower, null)
 
         /** se quiser limpar o histórico de sugestão:
          *
@@ -109,13 +122,16 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
         .clearHistory()
          */
 
-        searchPokemon(query)
+        searchPokemon(queryLower)
     }
 
-    private fun searchPokemon(query: String) {
+    fun searchPokemon(query: String) {
         showHideProgressBar(true)
         homeViewModel.searchPokemon(query)
-        //homeViewModel.searchGlitchPokemon(query)
+    }
+
+    fun getListPokemons(page: Int) {
+        homeViewModel.getListPokemon(page)
     }
 
     private fun checkFragment(currentFragment: String, lastFragment: String): Boolean {
@@ -133,7 +149,7 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
             .runOnCommit {
                 val navController = navHostFragment.navController
                 val navGraph = navController.navInflater.inflate(R.navigation.nav_pokedex)
-                navGraph.startDestination = fragmentID
+                navGraph.setStartDestination(fragmentID)
                 navController.graph = navGraph
             }.commit()
     }
@@ -166,25 +182,8 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
                     true
                 }
 
-                R.id.history -> {
-                    Toast.makeText(this, "history clicked", Toast.LENGTH_SHORT).show()
-                    val checker = checkFragment(
-                        HomeActivityKeys.HistoryFragment.toString(),
-                        lastFragment
-                    )
-
-                    if (!checker) {
-                        enableIcon(R.id.history)
-
-                        lastFragment = HomeActivityKeys.FavoriteFragment.toString()
-                        replaceFragment(R.id.fragmentFavorite)
-                    }
-
-                    true
-                }
-
                 else -> {
-                    Toast.makeText(this, "else menuclicklistener", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "else menuclicklistener", Toast.LENGTH_SHORT).show()
                     false
                 }
             }
@@ -195,44 +194,28 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
 
     private fun enableIcon(iconId: Int) {
         //set icon enable (selected) or disable (unselected)
-        when (iconId) {
-            R.id.favorite -> {
-                viewBinding.topAppBar.menu.findItem(iconId)
-                    .setIcon(R.drawable.baseline_favorite_black_24)
-
-                viewBinding.topAppBar.menu.findItem(R.id.history)
-                    .setIcon(R.drawable.baseline_history_white_24)
-            }
-            R.id.history -> {
-                viewBinding.topAppBar.menu.findItem(iconId)
-                    .setIcon(R.drawable.baseline_history_black_24)
-
-                viewBinding.topAppBar.menu.findItem(R.id.favorite)
-                    .setIcon(R.drawable.baseline_favorite_white_24)
-            }
-            else -> {
-                viewBinding.topAppBar.menu.findItem(R.id.favorite)
-                    .setIcon(R.drawable.baseline_favorite_white_24)
-
-                viewBinding.topAppBar.menu.findItem(R.id.history)
-                    .setIcon(R.drawable.baseline_history_white_24)
-            }
+        if (iconId == R.id.favorite) {
+            viewBinding.topAppBar.menu.findItem(iconId)
+                .setIcon(R.drawable.baseline_favorite_black_24)
+        } else {
+            viewBinding.topAppBar.menu.findItem(R.id.favorite)
+                .setIcon(R.drawable.baseline_favorite_white_24)
         }
     }
 
-    private fun showHideTopBarBackButton(shouldShow: Boolean) {
-        if (shouldShow) {
-            viewBinding.topAppBar.navigationIcon?.setVisible(true, false)
-        } else viewBinding.topAppBar.navigationIcon?.setVisible(false, false)
-    }
+//    private fun showHideTopBarBackButton(shouldShow: Boolean) {
+//        if (shouldShow) {
+//            viewBinding.topAppBar.navigationIcon?.setVisible(true, false)
+//        } else viewBinding.topAppBar.navigationIcon?.setVisible(false, false)
+//    }
 
     fun showHideProgressBar(visibility: Boolean) {
         if (visibility) {
-            viewBinding.progressBar.visibility = View.VISIBLE
+            viewBinding.progressBar.show()
             viewBinding.activityContent.alpha = 0.2f
             enableDisableView(this, false)
         } else {
-            viewBinding.progressBar.visibility = View.GONE
+            viewBinding.progressBar.hide()
             viewBinding.activityContent.alpha = 1f
             enableDisableView(this, true)
         }

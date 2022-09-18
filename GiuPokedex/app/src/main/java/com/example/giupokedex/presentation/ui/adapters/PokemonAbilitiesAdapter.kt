@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.PokemonAbilities
 
 /*
-class PokemonAbilitiesAdapter(private var listPokemonAbilities: List<PokemonAbilities>) : RecyclerView.Adapter<PokemonAbilitiesAdapter.ViewHolder>() {
+class PokemonAbilitiesAdapter(private var listPokemonAbilities: List<PokemonAbilities>) : RecyclerView.Adapter<PokemonAbilitiesAdapter.ItemViewHolder>() {
 
-    inner class ViewHolder(private val viewBinding:)
+    inner class ItemViewHolder(private val viewBinding:)
 
 }*/

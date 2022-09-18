@@ -1,11 +1,13 @@
 package com.example.giupokedex.data.repository
 
-import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toStatDetailDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.detail.toStatDetailDomainModel
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.detail.toTypeDetailDomainModel
-import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toAbilityDetailDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.detail.toAbilityDetailDomainModel
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.pokemon.toPokemonDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.toListPokemonDomainModel
 import com.example.giupokedex.data.datasource.mappers.pokeapi_glitch.toListGlitchPokemonDomainModel
 import com.example.giupokedex.data.datasource.remote.abs.PokedexRemoteDataSource
+import com.example.giupokedex.domain.models.pokeapi_co.ListPokemon
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
 import com.example.giupokedex.domain.models.pokeapi_co.detail.StatDetail
@@ -16,6 +18,10 @@ import com.example.giupokedex.domain.repository.PokedexRepository
 class PokedexRepositoryImpl(
     private val pokedexRemoteDataSource: PokedexRemoteDataSource
 ) : PokedexRepository {
+    override suspend fun getListPokemonCo(page: Int, offset: Int): ListPokemon {
+        return pokedexRemoteDataSource.getPokemonList(page, offset).toListPokemonDomainModel()
+    }
+
     override suspend fun getPokemonCo(idOrName: String): Pokemon {
         return pokedexRemoteDataSource.getPokemon(idOrName).toPokemonDomainModel()
     }

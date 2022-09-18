@@ -1,5 +1,6 @@
 package com.example.giupokedex.domain.usecases.impl
 
+import com.example.giupokedex.domain.models.pokeapi_co.ListPokemon
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
 import com.example.giupokedex.domain.models.pokeapi_co.detail.StatDetail
@@ -11,6 +12,10 @@ import com.example.giupokedex.domain.usecases.abs.PokedexUseCase
 class PokedexUseCaseImpl(
     private val pokedexRepository: PokedexRepository
 ) : PokedexUseCase {
+    override suspend fun invokeListPokemon(page: Int, offset: Int): ListPokemon {
+        return pokedexRepository.getListPokemonCo(page, offset)
+    }
+
     override suspend fun invokePokemon(idOrName: String): Pokemon {
         return pokedexRepository.getPokemonCo(idOrName)
     }

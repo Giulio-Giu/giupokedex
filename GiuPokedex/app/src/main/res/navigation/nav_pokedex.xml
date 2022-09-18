@@ -18,12 +18,25 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_fragmentHome_to_historyFragment"
-            app:destination="@id/fragmentHistory"
+            android:id="@+id/action_fragmentHome_to_pokemonDetailFragment"
+            app:destination="@id/fragmentPokemonDetail"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPokemonDetail"
+        android:name="com.example.giupokedex.presentation.ui.fragments.PokemonDetailFragment"
+        android:label="FragmentPokemonDetail"
+        tools:layout="@layout/fragment_pokemon_detail" >
+
+        <argument
+            android:name="pokemonNumber"
+            app:argType="string"
+            app:nullable="false"
+            android:defaultValue=""/>
     </fragment>
 
     <fragment
@@ -33,20 +46,6 @@
         tools:layout="@layout/fragment_favorite">
         <action
             android:id="@+id/action_fragmentFavorite_to_homeFragment"
-            app:destination="@id/fragmentHome"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragmentHistory"
-        android:name="com.example.giupokedex.presentation.ui.fragments.HistoryFragment"
-        android:label="FragmentHistory"
-        tools:layout="@layout/fragment_history">
-        <action
-            android:id="@+id/action_fragmentHistory_to_homeFragment"
             app:destination="@id/fragmentHome"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

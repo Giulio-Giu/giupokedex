@@ -5,8 +5,10 @@ import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.de
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.detail.StatDetailResponse
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.detail.TypeDetailResponse
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_glitch.GlitchPokemonResponse
+import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.ListPokemonResponse
 
 interface PokedexRemoteDataSource {
+    suspend fun getPokemonList(page: Int, offset: Int) : ListPokemonResponse
     suspend fun getPokemon(idOrName: String) : PokemonResponse
     suspend fun getGlitchPokemon(idOrName: String) : List<GlitchPokemonResponse>
     suspend fun getAbilityDetail(id: String) : AbilityDetailResponse
