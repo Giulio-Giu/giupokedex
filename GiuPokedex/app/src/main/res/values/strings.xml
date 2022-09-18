@@ -17,8 +17,6 @@
     <string name="favorite_content_description">Favorite white icon</string>
     <string name="search_title">Search</string>
     <string name="search_content_description">Search white icon</string>
-    <string name="history_title">History</string>
-    <string name="history_content_description">History white icon</string>
     <!-- Search -->
 
     <!-- Fragment Home -->
@@ -42,19 +40,9 @@
     <string name="pokemon_mythical">MYTHICAL</string>
     <string name="pokemon_ultra_beast">ULTRA BEAST</string>
     <string name="pokemon_mega">MEGA</string>
-    
-    <string name="no_data_message">Oops, your search yielded no result</string>
 
-    <!-- Stats Max values -->
-    <integer name="stats_max_hp">200</integer>
-    <integer name="stats_max_attack">200</integer>
-    <integer name="stats_max_defense">200</integer>
-    <integer name="stats_max_special_attack">200</integer>
-    <integer name="stats_max_special_defense">200</integer>
-    <integer name="stats_max_speed">200</integer>
-    <integer name="stats_max_exp">1000</integer>
-    <!-- Stats Max values -->
+    <string name="no_data_message">Oops, your search yielded no result</string>
     <!-- Fragment Home -->
 
-    
+
 </resources>

@@ -1,6 +1,6 @@
-package com.example.giupokedex.data.datasource.mappers
+package com.example.giupokedex.data.datasource.mappers.pokeapi_co.pokemon
 
-import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toAbilityDetailDomainModel
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.detail.toAbilityDetailDomainModel
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.pokemon.PokemonAbilitiesResponse
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.PokemonAbilities
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail

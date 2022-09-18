@@ -1,5 +1,6 @@
-package com.example.giupokedex.data.datasource.mappers.pokeapi_co.base
+package com.example.giupokedex.data.datasource.mappers.pokeapi_co.detail
 
+import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toListAbilityEffectsDomainModel
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.detail.AbilityDetailResponse
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
 

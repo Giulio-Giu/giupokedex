@@ -1,4 +1,4 @@
-package com.example.giupokedex.data.datasource.mappers
+package com.example.giupokedex.data.datasource.mappers.pokeapi_co.pokemon
 
 import com.example.giupokedex.data.datasource.mappers.pokeapi_co.base.toPokemonGenerationsDomainModel
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.pokemon.PokemonSpritesResponse

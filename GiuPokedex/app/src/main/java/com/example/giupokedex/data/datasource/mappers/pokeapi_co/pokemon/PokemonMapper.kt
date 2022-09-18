@@ -1,8 +1,5 @@
 package com.example.giupokedex.data.datasource.mappers.pokeapi_co.pokemon
 
-import com.example.giupokedex.data.datasource.mappers.toListPokemonAbilitiesDomainModel
-import com.example.giupokedex.data.datasource.mappers.toListPokemonStatsDomainModel
-import com.example.giupokedex.data.datasource.mappers.toPokemonSpritesDomainModel
 import com.example.giupokedex.data.datasource.remote.modelresponse.pokeapi_co.pokemon.PokemonResponse
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.PokemonSprites

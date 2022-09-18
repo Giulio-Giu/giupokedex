@@ -15,19 +15,4 @@
         android:title="@string/favorite_title"
         android:contentDescription="@string/favorite_content_description"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/history"
-        android:icon="@drawable/baseline_history_white_24"
-        android:title="@string/favorite_title"
-        android:contentDescription="@string/favorite_content_description"
-        app:showAsAction="ifRoom" />
-
-<!--    <item-->
-<!--        android:id="@+id/more"-->
-<!--        android:title="@string/more"-->
-<!--        android:contentDescription="@string/content_description_more"-->
-<!--        app:showAsAction="never"-->
-<!--        />-->
-
 </menu>
