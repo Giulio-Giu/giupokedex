@@ -55,6 +55,8 @@ data class FullPokemon(
 
     fun getPokemonTypesString() = types.map { it.type.name }.toMutableList()
 
+    fun getPokemonAbilitiesList() = abilities.map { it.ability }.toMutableList()
+
     companion object {
         val maxHp = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_hp)
         val maxAttack =

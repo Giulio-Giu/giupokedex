@@ -313,4 +313,9 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
             enableDisableView(this, true)
         }
     }
+
+    fun getAbilityDetail(abilityId: String) {
+        showHideProgressBar(true)
+        homeViewModel.searchAbilityDetail(abilityId)
+    }
 }

@@ -27,7 +27,6 @@ class PokemonTypesAdapter(private var listTypes: ArrayList<String>) :
         return listTypes.size
     }
 
-
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: ArrayList<String>) {
         listTypes = newList

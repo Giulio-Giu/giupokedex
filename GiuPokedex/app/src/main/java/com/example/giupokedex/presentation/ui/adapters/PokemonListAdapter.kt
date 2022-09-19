@@ -16,10 +16,6 @@ import com.example.giupokedex.presentation.eventclick.EventClickItemPokemon
 
 class PokemonListAdapter(private var searchPokemonList: ArrayList<PokemonResult>) :
     RecyclerView.Adapter<PokemonListAdapter.ItemViewHolder>() {
-//  RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-//    private val VIEW_TYPE_ITEM = 0
-//    private val VIEW_TYPE_LOADING = 1
 
     var eventClickItemPokemon: EventClickItemPokemon? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -35,39 +31,9 @@ class PokemonListAdapter(private var searchPokemonList: ArrayList<PokemonResult>
         holder.bindView(item, eventClickItemPokemon)
     }
 
-    //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-//        return if (viewType == VIEW_TYPE_ITEM) {
-//            val viewBinding = ItemPokemonBinding.inflate(
-//                LayoutInflater.from(parent.context),
-//                parent, false
-//            )
-//            ItemViewHolder(viewBinding)
-//        } else {
-//            val viewBinding = ItemRecyclerLoadingBinding.inflate(
-//                LayoutInflater.from(parent.context),
-//                parent, false
-//            )
-//            LoadingViewHolder(viewBinding)
-//        }
-//    }
-//
-//    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        if (holder is ItemViewHolder) {
-//            val item = searchPokemonList[position]
-//            holder.bindView(item, eventClickItemPokemon)
-//        } else if (holder is LoadingViewHolder) {
-//            holder.showLoadingView()
-//        }
-//    }
-
     override fun getItemCount(): Int {
         return searchPokemonList.size
     }
-
-//    override fun getItemViewType(position: Int): Int {
-//        return if ((searchPokemonList.getOrNull(position)) == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
-//    }
-
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: ArrayList<PokemonResult>) {
@@ -109,11 +75,4 @@ class PokemonListAdapter(private var searchPokemonList: ArrayList<PokemonResult>
             }
         }
     }
-
-//    inner class LoadingViewHolder(private val viewBinding: ItemRecyclerLoadingBinding) :
-//        RecyclerView.ViewHolder(viewBinding.root) {
-//        fun showLoadingView() {
-//            viewBinding.itemLoadingProgressBar.show()
-//        }
-//    }
 }

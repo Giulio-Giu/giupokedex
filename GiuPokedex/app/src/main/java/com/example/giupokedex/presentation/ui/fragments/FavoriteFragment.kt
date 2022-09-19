@@ -6,8 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.giupokedex.R
+import com.example.giupokedex.databinding.FragmentFavoriteBinding
+import com.example.giupokedex.presentation.ui.activities.HomeActivity
 
 class FavoriteFragment : Fragment() {
+
+    private var _binding: FragmentFavoriteBinding? = null
+    private val viewBinding get() = _binding!!
+
+    lateinit var homeActivity: HomeActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

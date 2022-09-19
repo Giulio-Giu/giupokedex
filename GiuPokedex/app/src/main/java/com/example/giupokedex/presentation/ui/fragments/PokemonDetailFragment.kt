@@ -15,11 +15,16 @@ import com.example.giupokedex.common.utils.ListenerEvents
 import com.example.giupokedex.common.utils.ObservableEvents
 import com.example.giupokedex.databinding.FragmentPokemonDetailBinding
 import com.example.giupokedex.domain.models.FullPokemon
+import com.example.giupokedex.domain.models.pokeapi_co.base.Ability
+import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
+import com.example.giupokedex.presentation.eventclick.EventClickItemPokemonAbility
 import com.example.giupokedex.presentation.ui.activities.HomeActivity
+import com.example.giupokedex.presentation.ui.adapters.PokemonAbilitiesAdapter
 import com.example.giupokedex.presentation.ui.adapters.PokemonPicturesAdapter
 import com.example.giupokedex.presentation.ui.adapters.PokemonTypesAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View.OnClickListener {
     private lateinit var query: String
@@ -36,6 +41,7 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
 
     private var picturesAdapter = PokemonPicturesAdapter(arrayListOf())
     private var typesAdapter = PokemonTypesAdapter(arrayListOf())
+    private var abilitiesAdapter = PokemonAbilitiesAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,10 +81,29 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
         homeActivity.homeViewModel.getFullPokemonDataMediatorLiveData.observe(
             viewLifecycleOwner
         ) { verifyResponse(it) }
+
+        homeActivity.homeViewModel.getAbilityDetailLiveData.observe(
+            viewLifecycleOwner
+        ) { showAbility(it) }
     }
 
     override fun initListeners() {
-        //TODO(quando clicar num item
+        abilitiesAdapter.eventClickItemPokemonAbility = object : EventClickItemPokemonAbility {
+            override fun onClickItemPokemonAbility(ability: Ability) {
+                homeActivity.getAbilityDetail(ability.getAbilityId())
+            }
+        }
+    }
+
+    private fun showAbility(ability: AbilityDetail) {
+        homeActivity.showHideProgressBar(false)
+        MaterialAlertDialogBuilder(homeActivity)
+            .setTitle(ability.name)
+            .setMessage(ability.getAbilityEffect())
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun verifyResponse(pair: Pair<Pokemon?, GlitchPokemon?>) {
@@ -196,7 +221,8 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
             pokemonDescription.text = _fullPokemon.description
             picturesAdapter.updateList(_fullPokemon.sprites.getImagesArrayList())
             typesAdapter.updateList(ArrayList(_fullPokemon.getPokemonTypesString()))
-            //TODO(array de habilidades)
+            abilitiesAdapter.updateList(ArrayList(_fullPokemon.getPokemonAbilitiesList()))
+
             fillPokemonStats()
         }
     }
@@ -235,5 +261,6 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
     private fun setUpAdapters() {
         viewBinding.recyclerViewPokemonPictures.adapter = picturesAdapter
         viewBinding.recyclerViewPokemonTypes.adapter = typesAdapter
+        viewBinding.recyclerViewPokemonAbilities.adapter = abilitiesAdapter
     }
 }

@@ -327,6 +327,31 @@
                     tools:listitem="@layout/item_pokemon_type" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/pokemon_abilities_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:text="@string/ability_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerView_pokemon_types" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_pokemon_abilities"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_xxsmall"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/pokemon_abilities_title"
+                    tools:listitem="@layout/item_pokemon_ability" />
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/pokemon_stats_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -338,7 +363,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@id/guide_end"
                     app:layout_constraintStart_toStartOf="@id/guide_start"
-                    app:layout_constraintTop_toBottomOf="@id/recyclerView_pokemon_types" />
+                    app:layout_constraintTop_toBottomOf="@id/recyclerView_pokemon_abilities" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -417,7 +442,7 @@
                         android:id="@+id/pokemon_stats_special_attack_title"
                         android:layout_width="@dimen/stats_width"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginTop="20dp"
                         android:text="@string/stats_special_attack_title"
                         android:textAlignment="center"
                         android:textColor="@color/black"

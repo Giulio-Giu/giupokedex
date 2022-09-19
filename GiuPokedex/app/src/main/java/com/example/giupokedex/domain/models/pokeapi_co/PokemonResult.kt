@@ -3,7 +3,6 @@ package com.example.giupokedex.domain.models.pokeapi_co
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class PokemonResult(
     var name: String = "",
