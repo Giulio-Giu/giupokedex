@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import coil.load
 import com.example.giupokedex.R
 import com.example.giupokedex.common.keys.HomeActivityKeys
 import com.example.giupokedex.common.utils.GiuPokedexUtils.getTextInitialCap
+import com.example.giupokedex.common.utils.GiuPokedexUtils.getTypeColorOrId
 import com.example.giupokedex.common.utils.GiuPokedexUtils.hide
 import com.example.giupokedex.common.utils.GiuPokedexUtils.show
 import com.example.giupokedex.common.utils.ListenerEvents
@@ -36,11 +38,12 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 
-
-class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View.OnClickListener {
+class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents {
     private lateinit var query: String
     private val args: PokemonDetailFragmentArgs by navArgs()
-    var shouldShow = false
+
+    private var shouldShowAbilityDescription = false
+    private var shouldShowTypeListPokemons = false
 
     private var _binding: FragmentPokemonDetailBinding? = null
     private val viewBinding get() = _binding!!
@@ -71,6 +74,23 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
         return viewBinding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(getString(R.string.FULL_POKEMON), _fullPokemon)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        val pokemonState =
+            savedInstanceState?.getParcelable(getString(R.string.FULL_POKEMON)) as FullPokemon?
+
+        pokemonState?.let {
+            _fullPokemon = it
+            fillPokemonStats()
+        }
+
+        super.onViewStateRestored(savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -79,14 +99,11 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
     }
 
     override fun onDestroyView() {
-        homeActivity.homeViewModel.dontShowAbility()
+        homeActivity.homeViewModel.dontShowTypeListPokemon()
+        homeActivity.homeViewModel.dontShowAbilityDescription()
         homeActivity.lastFragment = HomeActivityKeys.HomeFragment.toString()
         _binding = null
         super.onDestroyView()
-    }
-
-    override fun onClick(p0: View?) {
-        // TODO("click images, types...")
     }
 
     private fun initView() {
@@ -109,9 +126,13 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
             viewLifecycleOwner
         ) { showAbilityInfo(it) }
 
-        homeActivity.homeViewModel.shouldShowAbility.observe(
+        homeActivity.homeViewModel.shouldShowTypeListPokemon.observe(
             viewLifecycleOwner
-        ) { shouldShow = it }
+        ) { shouldShowTypeListPokemons = it }
+
+        homeActivity.homeViewModel.shouldShowAbilityDescription.observe(
+            viewLifecycleOwner
+        ) { shouldShowAbilityDescription = it }
     }
 
     override fun initListeners() {
@@ -129,35 +150,37 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
     }
 
     private fun showTypeInfo(type: TypeDetail) {
-//        homeActivity.showHideProgressBar(false)
-        val customDialog = Dialog(requireContext())
-        customDialog.setContentView(R.layout.custom_dialog_type_pokemons)
-//        customDialog.setTitle("${type.name.getTextInitialCap()}'s Pokemons:")
+        if (shouldShowTypeListPokemons) {
+            val customDialog = Dialog(requireContext())
+            customDialog.setContentView(R.layout.custom_dialog_type_pokemons)
 
-        val dialogTextViewTitle: MaterialTextView =
-            customDialog.findViewById(R.id.cd_type_pokemon_title)
-        dialogTextViewTitle.text = resources.getString(
-            R.string.custom_dialog_type_pokemon_title,
-            type.name.getTextInitialCap()
-        )
+            val dialogTextViewTitle: MaterialTextView =
+                customDialog.findViewById(R.id.cd_type_pokemon_title)
+            dialogTextViewTitle.text = resources.getString(
+                R.string.custom_dialog_type_pokemon_title,
+                type.name.getTextInitialCap()
+            )
 
-        val dialogRecycler: RecyclerView = customDialog.findViewById(R.id.recycler_cd_type_pokemon)
-        val dialogAdapter = TypePokemonsAdapter(type.name, type.getTypePokemonsList())
-        dialogRecycler.adapter = dialogAdapter
+            val dialogRecycler: RecyclerView =
+                customDialog.findViewById(R.id.recycler_cd_type_pokemon)
+            val dialogAdapter = TypePokemonsAdapter(type.name, type.getTypePokemonsList())
+            dialogRecycler.adapter = dialogAdapter
 
-        val dialogButton: MaterialButton = customDialog.findViewById(R.id.cd_type_pokemon_btn_ok)
-        dialogButton.setOnClickListener {
-            customDialog.dismiss()
+            val dialogButton: MaterialButton =
+                customDialog.findViewById(R.id.cd_type_pokemon_btn_ok)
+            dialogButton.setOnClickListener {
+                customDialog.dismiss()
+            }
+
+            homeActivity.showHideProgressBar(false)
+            customDialog.show()
         }
-
-        homeActivity.showHideProgressBar(false)
-        customDialog.show()
     }
 
     private fun showAbilityInfo(ability: AbilityDetail) {
         homeActivity.showHideProgressBar(false)
 
-        if (shouldShow) {
+        if (shouldShowAbilityDescription) {
             MaterialAlertDialogBuilder(viewBinding.root.context)
                 .setTitle(ability.name)
                 .setMessage(ability.getAbilityEffect().effect)

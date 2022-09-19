@@ -9,7 +9,7 @@ import com.example.giupokedex.R
 
 class SplashActivity : AppCompatActivity() {
 
-    private val delayMillis: Long = 2030
+    private val delayMillis: Long = 1030
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

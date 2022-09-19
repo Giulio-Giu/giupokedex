@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.example.giupokedex.R
 import com.example.giupokedex.domain.models.pokeapi_co.ListPokemon
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
-import com.example.giupokedex.domain.models.pokeapi_co.detail.StatDetail
 import com.example.giupokedex.domain.models.pokeapi_co.detail.TypeDetail
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
@@ -34,9 +33,14 @@ class HomeViewModel(
             }
         }
 
-    private val _shouldShowAbilityMutableLiveData = MutableLiveData<Boolean>()
-    val shouldShowAbility: LiveData<Boolean>
-    get() = _shouldShowAbilityMutableLiveData
+    private val _shouldShowAbilityDescriptionMutableLiveData = MutableLiveData<Boolean>()
+    val shouldShowAbilityDescription: LiveData<Boolean>
+        get() = _shouldShowAbilityDescriptionMutableLiveData
+
+
+    private val _shouldShowTypeListPokemonMutableLiveData = MutableLiveData<Boolean>()
+    val shouldShowTypeListPokemon: LiveData<Boolean>
+        get() = _shouldShowTypeListPokemonMutableLiveData
 
     private val _getAbilityDetailMutableLiveData = MutableLiveData<AbilityDetail>()
     val getAbilityDetailLiveData: LiveData<AbilityDetail>
@@ -78,22 +82,27 @@ class HomeViewModel(
         }
     }
 
+    fun searchTypeDetail(id: String) {
+        viewModelScope.launch {
+            _shouldShowTypeListPokemonMutableLiveData.postValue(true)
+            val typeResult = pokedexUseCase.invokeTypeDetail(id)
+            _getTypeDetailMutableLiveData.postValue(typeResult)
+        }
+    }
+
+    fun dontShowTypeListPokemon() {
+        _shouldShowTypeListPokemonMutableLiveData.postValue(false)
+    }
+
     fun searchAbilityDetail(id: String) {
         viewModelScope.launch {
-            _shouldShowAbilityMutableLiveData.postValue(true)
+            _shouldShowAbilityDescriptionMutableLiveData.postValue(true)
             val abilityResult = pokedexUseCase.invokeAbilityDetail(id)
             _getAbilityDetailMutableLiveData.postValue(abilityResult)
         }
     }
 
-    fun dontShowAbility(){
-        _shouldShowAbilityMutableLiveData.postValue(false)
-    }
-
-    fun searchTypeDetail(id: String) {
-        viewModelScope.launch {
-            val typeResult = pokedexUseCase.invokeTypeDetail(id)
-            _getTypeDetailMutableLiveData.postValue(typeResult)
-        }
+    fun dontShowAbilityDescription() {
+        _shouldShowAbilityDescriptionMutableLiveData.postValue(false)
     }
 }

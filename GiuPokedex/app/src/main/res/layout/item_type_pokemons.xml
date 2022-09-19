@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_6dp">
+    android:layout_marginBottom="@dimen/margin_xxsmall"
+    android:padding="@dimen/margin_xxsmall">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/item_type_pokemons_cardView"
@@ -24,9 +25,8 @@
             android:id="@+id/item_type_pokemons_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/card_elevation_4dp"
+            android:background="@color/black_medium"
             android:foreground="?attr/selectableItemBackground"
-            tools:background="@color/electric"
             tools:ignore="UnusedAttribute">
 
             <com.google.android.material.imageview.ShapeableImageView

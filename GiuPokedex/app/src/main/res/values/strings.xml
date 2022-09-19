@@ -7,6 +7,7 @@
     <!-- Shared Preferences -->
     <string name="PREF_APP_NAME">giupokedex</string>
     <string name="PREF_DEVICE_ID">device_id</string>
+    <string name="FULL_POKEMON">full_pokemon</string>
     <!-- Shared Preferences -->
 
     <!-- Search -->

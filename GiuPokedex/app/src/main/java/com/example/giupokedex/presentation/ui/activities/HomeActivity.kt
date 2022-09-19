@@ -27,8 +27,7 @@ import com.example.giupokedex.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClickListener,
-    SearchManager.OnDismissListener {
+class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClickListener {
     private lateinit var sharedPreferencesGlobal: SharedPreferences
     private lateinit var viewBinding: ActivityHomeBinding
 
@@ -38,13 +37,9 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
 
     val homeViewModel: HomeViewModel by viewModel()
 
-    override fun onDismiss() {
-        //TODO("Fazer algo se necessário quando o search dialog é fechado")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//
+
         sharedPreferencesGlobal = getSharedPreferences(
             getString(R.string.PREF_APP_NAME),
             Context.MODE_PRIVATE
@@ -173,7 +168,7 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
                         PokemonDetailFragmentDirections.actionFragmentPokemonDetailToHomeFragment()
                     )
                     changeIcon(isDetailOrSearch = false)
-                } else if(query.trim().isNotEmpty()) {
+                } else if (query.trim().isNotEmpty()) {
                     searchPokemon(query)
                 }
             }
