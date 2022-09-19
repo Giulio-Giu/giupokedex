@@ -2,7 +2,7 @@
     <!-- Commons -->
     <string name="app_name">GiuPokedex</string>
     <string name="content_description_logo">Logo with the pokemon\'s pokeball symbol and with the text: "Giu Pokedex"</string>
-    <string name="ok">OK</string>
+    <string name="btn_ok">OK</string>
 
     <!-- Shared Preferences -->
     <string name="PREF_APP_NAME">giupokedex</string>
@@ -16,7 +16,7 @@
     <string name="search_content_description">Search white icon</string>
     <!-- Search -->
 
-    <!-- Fragment Home -->
+    <!-- Fragment Pokemon Detail -->
     <string name="height_title">Height:</string>
     <string name="weight_title">Weight:</string>
     <string name="type_title">Types</string>
@@ -39,7 +39,7 @@
     <string name="pokemon_mega">MEGA</string>
 
     <string name="no_data_message">Oops, your search yielded no result</string>
-    <!-- Fragment Home -->
 
-
+    <string name="custom_dialog_type_pokemon_title">%1s\'s Pokemons:</string>
+    <!-- Fragment Pokemon Detail -->
 </resources>

@@ -53,7 +53,7 @@ data class FullPokemon(
     fun getSpeedString(): String = "$speed/$maxSpeed"
     fun getExpString(): String = "$exp/$maxExp"
 
-    fun getPokemonTypesString() = types.map { it.type.name }.toMutableList()
+    fun getPokemonTypesList() = types.map { it.type }.toMutableList()
 
     fun getPokemonAbilitiesList() = abilities.map { it.ability }.toMutableList()
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.giupokedex.common.utils.GiuPokedexUtils.getTextInitialCap
 import com.example.giupokedex.databinding.ItemPokemonAbilityBinding
 import com.example.giupokedex.domain.models.pokeapi_co.base.Ability
 import com.example.giupokedex.presentation.eventclick.EventClickItemPokemonAbility
@@ -40,7 +41,7 @@ class PokemonAbilitiesAdapter(private var listPokemonAbilities: ArrayList<Abilit
         RecyclerView.ViewHolder(viewBinding.root) {
         fun bindView(ability: Ability) {
             viewBinding.apply {
-                itemAbilityTitle.text = ability.name
+                itemAbilityTitle.text = ability.name.getTextInitialCap()
                 itemAbilityBackground.setOnClickListener {
                     eventClickItemPokemonAbility?.onClickItemPokemonAbility(ability)
                 }

@@ -16,6 +16,8 @@ object GiuPokedexUtils {
         globalActivity = activity
     }
 
+    fun String.getTextInitialCap() = this.replaceFirstChar(Char::titlecase)
+
     fun enableDisableView(activity: Activity, enabled: Boolean) {
         if (enabled) {
             activity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)

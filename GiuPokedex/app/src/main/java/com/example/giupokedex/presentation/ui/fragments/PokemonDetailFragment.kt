@@ -1,16 +1,18 @@
 package com.example.giupokedex.presentation.ui.fragments
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.giupokedex.R
 import com.example.giupokedex.common.keys.HomeActivityKeys
+import com.example.giupokedex.common.utils.GiuPokedexUtils.getTextInitialCap
 import com.example.giupokedex.common.utils.GiuPokedexUtils.hide
 import com.example.giupokedex.common.utils.GiuPokedexUtils.show
 import com.example.giupokedex.common.utils.ListenerEvents
@@ -18,15 +20,22 @@ import com.example.giupokedex.common.utils.ObservableEvents
 import com.example.giupokedex.databinding.FragmentPokemonDetailBinding
 import com.example.giupokedex.domain.models.FullPokemon
 import com.example.giupokedex.domain.models.pokeapi_co.base.Ability
+import com.example.giupokedex.domain.models.pokeapi_co.base.Type
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
+import com.example.giupokedex.domain.models.pokeapi_co.detail.TypeDetail
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
 import com.example.giupokedex.presentation.eventclick.EventClickItemPokemonAbility
+import com.example.giupokedex.presentation.eventclick.EventClickItemPokemonType
 import com.example.giupokedex.presentation.ui.activities.HomeActivity
 import com.example.giupokedex.presentation.ui.adapters.PokemonAbilitiesAdapter
 import com.example.giupokedex.presentation.ui.adapters.PokemonPicturesAdapter
 import com.example.giupokedex.presentation.ui.adapters.PokemonTypesAdapter
+import com.example.giupokedex.presentation.ui.adapters.TypePokemonsAdapter
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textview.MaterialTextView
+
 
 class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View.OnClickListener {
     private lateinit var query: String
@@ -92,9 +101,13 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
             viewLifecycleOwner
         ) { verifyResponse(it) }
 
+        homeActivity.homeViewModel.getTypeDetailLiveData.observe(
+            viewLifecycleOwner
+        ) { showTypeInfo(it) }
+
         homeActivity.homeViewModel.getAbilityDetailLiveData.observe(
             viewLifecycleOwner
-        ) { showAbility(it) }
+        ) { showAbilityInfo(it) }
 
         homeActivity.homeViewModel.shouldShowAbility.observe(
             viewLifecycleOwner
@@ -102,6 +115,12 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
     }
 
     override fun initListeners() {
+        typesAdapter.eventClickItemPokemonType = object : EventClickItemPokemonType {
+            override fun onClickItemPokemonType(type: Type) {
+                homeActivity.getTypeDetail(type.getTypeId())
+            }
+        }
+
         abilitiesAdapter.eventClickItemPokemonAbility = object : EventClickItemPokemonAbility {
             override fun onClickItemPokemonAbility(ability: Ability) {
                 homeActivity.getAbilityDetail(ability.getAbilityId())
@@ -109,14 +128,40 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
         }
     }
 
-    private fun showAbility(ability: AbilityDetail) {
+    private fun showTypeInfo(type: TypeDetail) {
+//        homeActivity.showHideProgressBar(false)
+        val customDialog = Dialog(requireContext())
+        customDialog.setContentView(R.layout.custom_dialog_type_pokemons)
+//        customDialog.setTitle("${type.name.getTextInitialCap()}'s Pokemons:")
+
+        val dialogTextViewTitle: MaterialTextView =
+            customDialog.findViewById(R.id.cd_type_pokemon_title)
+        dialogTextViewTitle.text = resources.getString(
+            R.string.custom_dialog_type_pokemon_title,
+            type.name.getTextInitialCap()
+        )
+
+        val dialogRecycler: RecyclerView = customDialog.findViewById(R.id.recycler_cd_type_pokemon)
+        val dialogAdapter = TypePokemonsAdapter(type.name, type.getTypePokemonsList())
+        dialogRecycler.adapter = dialogAdapter
+
+        val dialogButton: MaterialButton = customDialog.findViewById(R.id.cd_type_pokemon_btn_ok)
+        dialogButton.setOnClickListener {
+            customDialog.dismiss()
+        }
+
+        homeActivity.showHideProgressBar(false)
+        customDialog.show()
+    }
+
+    private fun showAbilityInfo(ability: AbilityDetail) {
         homeActivity.showHideProgressBar(false)
 
         if (shouldShow) {
             MaterialAlertDialogBuilder(viewBinding.root.context)
                 .setTitle(ability.name)
                 .setMessage(ability.getAbilityEffect().effect)
-                .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
+                .setPositiveButton(resources.getString(R.string.btn_ok)) { dialog, _ ->
                     dialog.dismiss()
                     dialog.cancel()
                 }
@@ -238,7 +283,7 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
 
             pokemonDescription.text = _fullPokemon.description
             picturesAdapter.updateList(_fullPokemon.sprites.getImagesArrayList())
-            typesAdapter.updateList(ArrayList(_fullPokemon.getPokemonTypesString()))
+            typesAdapter.updateList(ArrayList(_fullPokemon.getPokemonTypesList()))
             abilitiesAdapter.updateList(ArrayList(_fullPokemon.getPokemonAbilitiesList()))
 
             fillPokemonStats()

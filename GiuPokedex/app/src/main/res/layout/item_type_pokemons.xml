@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_6dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/item_type_pokemons_cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_6dp"
+        android:background="@color/background800"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white_12"
+        app:cardCornerRadius="@dimen/card_radius_14dp"
+        app:cardElevation="@dimen/card_elevation_4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_type_pokemons_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/card_elevation_4dp"
+            android:foreground="?attr/selectableItemBackground"
+            tools:background="@color/electric"
+            tools:ignore="UnusedAttribute">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/item_type_pokemons_image"
+                android:layout_width="@dimen/item_type_pokemon_size"
+                android:layout_height="@dimen/item_type_pokemon_size"
+                android:layout_margin="@dimen/margin_xsmall"
+                android:scaleType="centerInside"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/raichu_front_test"
+                tools:visibility="visible" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/item_progress_bar_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:indicatorColor="@color/purple_700"
+                app:layout_constraintBottom_toBottomOf="@+id/item_type_pokemons_image"
+                app:layout_constraintEnd_toEndOf="@+id/item_type_pokemons_image"
+                app:layout_constraintStart_toStartOf="@+id/item_type_pokemons_image"
+                app:layout_constraintTop_toTopOf="@+id/item_type_pokemons_image"
+                tools:visibility="visible" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_type_pokemons_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/card_elevation_4dp"
+                android:maxLines="1"
+                android:padding="@dimen/margin_12dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/item_type_pokemons_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/item_type_pokemons_image"
+                app:layout_constraintTop_toTopOf="@id/item_type_pokemons_image"
+                tools:text="#001 - Bulbasaur" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

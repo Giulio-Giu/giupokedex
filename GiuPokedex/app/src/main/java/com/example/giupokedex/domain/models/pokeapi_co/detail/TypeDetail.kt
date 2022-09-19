@@ -9,4 +9,6 @@ data class TypeDetail(
     var id: Int = 0,
     var name: String = "",
     var pokemon: List<TypePokemonsList> = emptyList(),
-) : Parcelable
+) : Parcelable {
+    fun getTypePokemonsList() = pokemon.map { it.pokemon }.toMutableList()
+}

@@ -210,4 +210,9 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
         showHideProgressBar(true)
         homeViewModel.searchAbilityDetail(abilityId)
     }
+
+    fun getTypeDetail(typeId: String) {
+        showHideProgressBar(true)
+        homeViewModel.searchTypeDetail(typeId)
+    }
 }

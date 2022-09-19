@@ -35,4 +35,6 @@
     <dimen name="no_data_image_size">85dp</dimen>
     <dimen name="pokemon_detail_image">200dp</dimen>
     <dimen name="pokemon_item_image">120dp</dimen>
+    <dimen name="item_type_pokemon_size">50dp</dimen>
+    <dimen name="recycler_item_type_pokemon_size">250dp</dimen>
 </resources>
