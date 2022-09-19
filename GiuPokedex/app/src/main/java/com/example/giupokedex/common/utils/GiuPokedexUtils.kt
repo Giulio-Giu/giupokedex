@@ -41,26 +41,27 @@ object GiuPokedexUtils {
         return typeList.random()
     }
 
-    fun getTypeColor(type: String): Int {
+    fun getTypeColorOrId(type: String, isColor: Boolean): Int {
         return when (type.lowercase(Locale.getDefault())) {
-            "fighting" -> R.color.fighting
-            "flying" -> R.color.flying
-            "poison" -> R.color.poison
-            "ground" -> R.color.ground
-            "rock" -> R.color.rock
-            "bug" -> R.color.bug
-            "ghost" -> R.color.ghost
-            "steel" -> R.color.steel
-            "fire" -> R.color.fire
-            "water" -> R.color.water
-            "grass" -> R.color.grass
-            "electric" -> R.color.electric
-            "psychic" -> R.color.psychic
-            "ice" -> R.color.ice
-            "dragon" -> R.color.dragon
-            "fairy" -> R.color.fairy
-            "dark" -> R.color.dark
-            else -> R.color.gray_21
+            "fighting" -> if(isColor) R.color.fighting else R.drawable.ic_pokemon_type_fighting
+            "flying" -> if(isColor) R.color.flying else R.drawable.ic_pokemon_type_flying
+            "poison" -> if(isColor) R.color.poison else R.drawable.ic_pokemon_type_poison
+            "ground" -> if(isColor) R.color.ground else R.drawable.ic_pokemon_type_ground
+            "rock" -> if(isColor) R.color.rock else R.drawable.ic_pokemon_type_rock
+            "bug" -> if(isColor) R.color.bug else R.drawable.ic_pokemon_type_bug
+            "ghost" -> if(isColor) R.color.ghost else R.drawable.ic_pokemon_type_ghost
+            "steel" -> if(isColor) R.color.steel else R.drawable.ic_pokemon_type_steel
+            "fire" -> if(isColor) R.color.fire else R.drawable.ic_pokemon_type_fire
+            "water" -> if(isColor) R.color.water else R.drawable.ic_pokemon_type_water
+            "grass" -> if(isColor) R.color.grass else R.drawable.ic_pokemon_type_grass
+            "electric" -> if(isColor) R.color.electric else R.drawable.ic_pokemon_type_electric
+            "psychic" -> if(isColor) R.color.psychic else R.drawable.ic_pokemon_type_psychic
+            "ice" -> if(isColor) R.color.ice else R.drawable.ic_pokemon_type_electric
+            "dragon" -> if(isColor) R.color.dragon else R.drawable.ic_pokemon_type_dragon
+            "fairy" -> if(isColor) R.color.fairy else R.drawable.ic_pokemon_type_fairy
+            "dark" -> if(isColor) R.color.dark else R.drawable.ic_pokemon_type_dark
+            "normal" -> if(isColor) R.color.normal else R.drawable.ic_pokemon_type_normal
+            else -> if(isColor) R.color.undefined else R.drawable.ic_no_found
         }
     }
 

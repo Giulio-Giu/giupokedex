@@ -19,8 +19,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_data"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:visibility="gone"
-                android:layout_height="match_parent">
+                tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guide_start"
@@ -171,8 +172,8 @@
                     android:text="@string/pokemon_starter"
                     android:textAlignment="center"
                     android:textColor="@color/starter"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_xsmall"
+                    android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@id/pokemon_legendary"
                     app:layout_constraintEnd_toStartOf="@id/pokemon_image"
@@ -188,8 +189,8 @@
                     android:text="@string/pokemon_legendary"
                     android:textAlignment="center"
                     android:textColor="@color/legendary"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_xsmall"
+                    android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@id/pokemon_mythical"
                     app:layout_constraintEnd_toStartOf="@id/pokemon_image"
@@ -219,11 +220,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:textStyle="bold"
                     android:text="@string/pokemon_ultra_beast"
                     android:textAlignment="center"
                     android:textColor="@color/ultra_beast"
                     android:textSize="@dimen/text_size_xsmall"
+                    android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@id/pokemon_mega"
                     app:layout_constraintEnd_toStartOf="@id/pokemon_image"
@@ -234,7 +235,6 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/pokemon_mega"
                     android:layout_width="0dp"
-                    android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:layout_marginBottom="@dimen/margin_big"
@@ -242,6 +242,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/mega"
                     android:textSize="@dimen/text_size_xsmall"
+                    android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/pokemon_image"
                     app:layout_constraintEnd_toStartOf="@id/pokemon_image"

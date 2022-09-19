@@ -18,6 +18,8 @@ import com.example.giupokedex.domain.models.FullPokemon
 import com.example.giupokedex.domain.models.pokeapi_co.pokemon.Pokemon
 import com.example.giupokedex.domain.models.pokeapi_glitch.GlitchPokemon
 import com.example.giupokedex.presentation.ui.activities.HomeActivity
+import com.example.giupokedex.presentation.ui.adapters.PokemonPicturesAdapter
+import com.example.giupokedex.presentation.ui.adapters.PokemonTypesAdapter
 
 class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View.OnClickListener {
     private lateinit var query: String
@@ -32,16 +34,15 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
     private var _glitchPokemon: GlitchPokemon = GlitchPokemon()
     private var _fullPokemon: FullPokemon = FullPokemon()
 
+    private var picturesAdapter = PokemonPicturesAdapter(arrayListOf())
+    private var typesAdapter = PokemonTypesAdapter(arrayListOf())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeActivity = (activity as HomeActivity)
         query = args.pokemonNumber
-        homeActivity.searchPokemon(query)
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        if (query.trim().isNotEmpty()) homeActivity.searchPokemon(query)
     }
 
     override fun onCreateView(
@@ -161,6 +162,7 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
             val image = if (_fullPokemon.image.trim()
                     .isNotEmpty()
             ) _fullPokemon.image else _fullPokemon.sprites.front_default
+
             pokemonImage.load(image) {
                 listener(
                     onSuccess = { _, _ ->
@@ -192,8 +194,9 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
             if (_fullPokemon.is_mega) pokemonMega.show() else pokemonMega.hide()
 
             pokemonDescription.text = _fullPokemon.description
-            //TODO( array de imagens
-            //TODO( array de tipos
+            picturesAdapter.updateList(_fullPokemon.sprites.getImagesArrayList())
+            typesAdapter.updateList(ArrayList(_fullPokemon.getPokemonTypesString()))
+            //TODO(array de habilidades)
             fillPokemonStats()
         }
     }
@@ -230,6 +233,7 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
     }
 
     private fun setUpAdapters() {
-
+        viewBinding.recyclerViewPokemonPictures.adapter = picturesAdapter
+        viewBinding.recyclerViewPokemonTypes.adapter = typesAdapter
     }
 }

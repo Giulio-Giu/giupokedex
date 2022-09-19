@@ -5,9 +5,8 @@
 
     <!-- Shared Preferences -->
     <string name="PREF_APP_NAME">giupokedex</string>
-    <string name="PREF_SEARCH">search</string>
-    <string name="PREF_LIST_SEARCH">listSearch</string>
-    <string name="PREF_HISTORIC_SEARCH">historicSearch</string>
+    <string name="PREF_LIST_FAVORITES">list_favorites</string>
+    <string name="PREF_DEVICE_ID">device_id</string>
     <!-- Shared Preferences -->
 
     <!-- Search -->

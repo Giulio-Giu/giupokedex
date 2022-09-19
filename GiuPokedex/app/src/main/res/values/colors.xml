@@ -38,7 +38,8 @@
     <color name="dragon">#378A94</color>
     <color name="fairy">#9E1A44</color>
     <color name="dark">#040706</color>
-    <color name="gray_21">#B1A5A5</color>
+    <color name="normal">#B1A5A5</color>
+    <color name="undefined">#808080</color>
     <!-- Types Color -->
 
 

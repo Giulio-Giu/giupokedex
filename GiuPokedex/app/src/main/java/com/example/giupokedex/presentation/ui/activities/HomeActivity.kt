@@ -1,15 +1,20 @@
 package com.example.giupokedex.presentation.ui.activities
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
+import android.provider.Settings
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.giupokedex.R
 import com.example.giupokedex.common.di.DIPokedexManager
@@ -21,13 +26,16 @@ import com.example.giupokedex.common.utils.GiuPokedexUtils.show
 import com.example.giupokedex.common.utils.ListenerEvents
 import com.example.giupokedex.common.utils.PokedexSuggestionProvider
 import com.example.giupokedex.databinding.ActivityHomeBinding
+import com.example.giupokedex.presentation.ui.fragments.FavoriteFragmentDirections
+import com.example.giupokedex.presentation.ui.fragments.HomeFragmentDirections
+import com.example.giupokedex.presentation.ui.fragments.PokemonDetailFragmentDirections
 import com.example.giupokedex.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClickListener,
     SearchManager.OnDismissListener {
-    //    private lateinit var sharedPreferencesGlobal: SharedPreferences
+    private lateinit var sharedPreferencesGlobal: SharedPreferences
     private lateinit var viewBinding: ActivityHomeBinding
 
     //store the value of the last accessed fragment
@@ -43,10 +51,12 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //
-//        sharedPreferencesGlobal = getSharedPreferences(
-//            getString(R.string.PREF_APP_NAME),
-//            Context.MODE_PRIVATE
-//        )
+        sharedPreferencesGlobal = getSharedPreferences(
+            getString(R.string.PREF_APP_NAME),
+            Context.MODE_PRIVATE
+        )
+
+        verifyDevice()
 
         initDependencies(savedInstanceState)
         viewBinding = ActivityHomeBinding.inflate(layoutInflater)
@@ -56,6 +66,24 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
         initNavHostFragment()
         initListeners()
         handleIntent(intent)
+    }
+
+    @SuppressLint("HardwareIds")
+    private fun verifyDevice() {
+        val deviceIdStr = resources.getString(R.string.PREF_DEVICE_ID)
+        //first time installing the app on this device, clear the recent search suggestions
+        if (sharedPreferencesGlobal.getString(deviceIdStr, null).isNullOrEmpty()) {
+            SearchRecentSuggestions(
+                this,
+                PokedexSuggestionProvider.AUTHORITY,
+                PokedexSuggestionProvider.MODE
+            ).clearHistory()
+
+            sharedPreferencesGlobal.edit().putString(
+                deviceIdStr,
+                Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+            ).apply()
+        }
     }
 
     private fun initDependencies(savedInstanceState: Bundle?) {
@@ -72,12 +100,14 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
 
     override fun initListeners() {
 //        showHideTopBarBackButton(false)
-        viewBinding.topAppBar.navigationIcon?.setVisible(false, true)
+//        viewBinding.topAppBar.navigationIcon?.setVisible(false, true)
         viewBinding.topAppBar.setNavigationOnClickListener {
             if (lastFragment != HomeActivityKeys.HomeFragment.toString()) {
-                viewBinding.topAppBar.navigationIcon = null
-            } else {
-                viewBinding.topAppBar.setNavigationIcon(R.drawable.baseline_arrow_back_ios_white_24)
+                enableIcon(0)
+                //viewBinding.topAppBar.setNavigationIcon(R.drawable.baseline_home_black_24)
+                doTransaction(HomeActivityKeys.HomeFragment.toString())
+//                lastFragment = HomeActivityKeys.HomeFragment.toString()
+//                replaceFragment(R.id.fragmentHome)
             }
         }
         viewBinding.topAppBar.setOnMenuItemClickListener(this)
@@ -89,6 +119,47 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
                 showHideTopBarBackButton(false)
             }
         }*/
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        item?.let { menuItem ->
+            return when (menuItem.itemId) {
+                R.id.search -> {
+                    enableIcon(R.id.search)
+                    onSearchRequested()
+
+                    true
+                }
+
+                R.id.favorite -> {
+//                    Toast.makeText(this, "favorite clicked", Toast.LENGTH_SHORT).show()
+                    doTransaction(nextFragment = HomeActivityKeys.FavoriteFragment.toString())
+//                    val checker = checkFragment(
+//                        HomeActivityKeys.FavoriteFragment.toString(),
+//                        lastFragment
+//                    )
+//
+//                    if (!checker) {
+//                        enableIcon(R.id.favorite)
+//
+//                        if (checkFragment(HomeActivityKeys.HomeFragment.toString(),lastFragment)) {
+//
+//                        }
+//
+//                        lastFragment = HomeActivityKeys.FavoriteFragment.toString()
+//                        replaceFragment(R.id.fragmentFavorite)
+//                    }
+
+                    true
+                }
+
+                else -> {
+                    false
+                }
+            }
+        }
+
+        return true
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -116,13 +187,19 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
             PokedexSuggestionProvider.MODE
         ).saveRecentQuery(queryLower, null)
 
-        /** se quiser limpar o histórico de sugestão:
-         *
-        SearchRecentSuggestions(this, PokedexSuggestionProvider.AUTHORITY, PokedexSuggestionProvider.MODE)
-        .clearHistory()
-         */
+        doTransaction(HomeActivityKeys.PokemonDetailFragment.toString(), queryLower)
 
-        searchPokemon(queryLower)
+//        val checker = checkFragment(
+//            HomeActivityKeys.PokemonDetailFragment.toString(),
+//            lastFragment
+//        )
+//
+//        if (!checker) {
+//            lastFragment = HomeActivityKeys.PokemonDetailFragment.toString()
+//            replaceFragment(R.id.fragmentPokemonDetail)
+//        }
+
+//        searchPokemon(queryLower)
     }
 
     fun searchPokemon(query: String) {
@@ -154,60 +231,76 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
             }.commit()
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        item?.let { menuItem ->
-            return when (menuItem.itemId) {
-                R.id.search -> {
-                    Toast.makeText(this, "search clicked", Toast.LENGTH_SHORT).show()
-                    enableIcon(R.id.search)
-                    onSearchRequested()
-
-                    true
-                }
-
-                R.id.favorite -> {
-                    Toast.makeText(this, "favorite clicked", Toast.LENGTH_SHORT).show()
-                    val checker = checkFragment(
-                        HomeActivityKeys.FavoriteFragment.toString(),
-                        lastFragment
+    private fun doTransaction(nextFragment: String, query: String = "") {
+        when (lastFragment) {
+            HomeActivityKeys.HomeFragment.toString() -> {
+                if (nextFragment == HomeActivityKeys.PokemonDetailFragment.toString()) {
+                    findNavController(R.id.pokedex_nav_host).navigate(
+                        HomeFragmentDirections.actionFragmentHomeToPokemonDetailFragment(query)
                     )
-
-                    if (!checker) {
-                        enableIcon(R.id.favorite)
-
-                        lastFragment = HomeActivityKeys.FavoriteFragment.toString()
-                        replaceFragment(R.id.fragmentFavorite)
-                    }
-
-                    true
+                } else if (nextFragment == HomeActivityKeys.FavoriteFragment.toString()) {
+                    findNavController(R.id.pokedex_nav_host).navigate(
+                        HomeFragmentDirections.actionFragmentHomeToFavoriteFragment()
+                    )
                 }
+            }
 
-                else -> {
-//                    Toast.makeText(this, "else menuclicklistener", Toast.LENGTH_SHORT).show()
-                    false
+            HomeActivityKeys.PokemonDetailFragment.toString() -> {
+                if (nextFragment == HomeActivityKeys.HomeFragment.toString()) {
+                    findNavController(R.id.pokedex_nav_host).navigate(
+                        PokemonDetailFragmentDirections.actionFragmentPokemonDetailToHomeFragment()
+                    )
+                } else if (nextFragment == HomeActivityKeys.FavoriteFragment.toString()) {
+                    findNavController(R.id.pokedex_nav_host).navigate(
+                        PokemonDetailFragmentDirections.actionFragmentPokemonDetailToFavoriteFragment()
+                    )
+                }
+            }
+
+            HomeActivityKeys.FavoriteFragment.toString() -> {
+                if (nextFragment == HomeActivityKeys.HomeFragment.toString()) {
+                    findNavController(R.id.pokedex_nav_host).navigate(
+                        FavoriteFragmentDirections.actionFragmentFavoriteToHomeFragment()
+                    )
+                } else if (nextFragment == HomeActivityKeys.PokemonDetailFragment.toString()) {
+                    findNavController(R.id.pokedex_nav_host).navigate(
+                        FavoriteFragmentDirections.actionFragmentFavoriteToPokemonDetailFragment(query)
+                    )
                 }
             }
         }
-
-        return true
     }
 
-    private fun enableIcon(iconId: Int) {
+    private fun enableIcon(iconId: Int = 0, isDetail: Boolean = false) {
         //set icon enable (selected) or disable (unselected)
-        if (iconId == R.id.favorite) {
-            viewBinding.topAppBar.menu.findItem(iconId)
-                .setIcon(R.drawable.baseline_favorite_black_24)
+        if (isDetail) {
+            viewBinding.topAppBar.apply {
+                setNavigationIcon(R.drawable.baseline_home_white_24)
+                menu.findItem(R.id.favorite).setIcon(R.drawable.baseline_favorite_white_24)
+            }
         } else {
-            viewBinding.topAppBar.menu.findItem(R.id.favorite)
-                .setIcon(R.drawable.baseline_favorite_white_24)
+            when (iconId) {
+                R.id.favorite -> {
+                    viewBinding.topAppBar.apply {
+                        setNavigationIcon(R.drawable.baseline_home_white_24)
+                        menu.findItem(iconId).setIcon(R.drawable.baseline_favorite_black_24)
+                    }
+                }
+                R.id.search -> {
+                    viewBinding.topAppBar.apply {
+                        setNavigationIcon(R.drawable.baseline_home_white_24)
+                        menu.findItem(R.id.favorite).setIcon(R.drawable.baseline_favorite_white_24)
+                    }
+                }
+                else -> {
+                    viewBinding.topAppBar.apply {
+                        setNavigationIcon(R.drawable.baseline_home_black_24)
+                        menu.findItem(R.id.favorite).setIcon(R.drawable.baseline_favorite_white_24)
+                    }
+                }
+            }
         }
     }
-
-//    private fun showHideTopBarBackButton(shouldShow: Boolean) {
-//        if (shouldShow) {
-//            viewBinding.topAppBar.navigationIcon?.setVisible(true, false)
-//        } else viewBinding.topAppBar.navigationIcon?.setVisible(false, false)
-//    }
 
     fun showHideProgressBar(visibility: Boolean) {
         if (visibility) {

@@ -16,4 +16,20 @@ data class PokemonSprites(
     var front_shiny_female: String = "",
 
     var generations: PokemonGenerations = PokemonGenerations(),
-) : Parcelable
+) : Parcelable {
+
+    fun getImagesArrayList(): ArrayList<String> {
+        val arrayImages = arrayListOf<String>()
+
+        if (front_default.isNotEmpty()) arrayImages.add(front_default)
+        if (back_default.isNotEmpty()) arrayImages.add(back_default)
+        if (front_female.isNotEmpty()) arrayImages.add(front_female)
+        if (back_female.isNotEmpty()) arrayImages.add(back_female)
+        if (front_shiny.isNotEmpty()) arrayImages.add(front_shiny)
+        if (back_shiny.isNotEmpty()) arrayImages.add(back_shiny)
+        if (front_shiny_female.isNotEmpty()) arrayImages.add(front_shiny_female)
+        if (back_shiny_female.isNotEmpty()) arrayImages.add(back_shiny_female)
+
+        return arrayImages
+    }
+}

@@ -18,7 +18,7 @@ data class PokemonResult(
 //        }
 //    }
 
-    private fun getPokemonNumber(): String = url.split("/".toRegex()).dropLast(1).last()
+    fun getPokemonNumber(): String = url.split("/".toRegex()).dropLast(1).last()
 
     fun getItemPokemonNumberAndName(): String = "#${getPokemonNumber().padStart(3, '0')} - $name"
 }

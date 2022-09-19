@@ -75,11 +75,6 @@ class PokemonListAdapter(private var searchPokemonList: ArrayList<PokemonResult>
         this.notifyDataSetChanged()
     }
 
-    fun addItem(newItem: PokemonResult?) {
-        searchPokemonList.plus(newItem)
-        this.notifyItemInserted(searchPokemonList.size - 1)
-    }
-
     inner class ItemViewHolder(private val viewBinding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
         fun bindView(
@@ -109,7 +104,7 @@ class PokemonListAdapter(private var searchPokemonList: ArrayList<PokemonResult>
                 }
 
                 itemCardView.setOnClickListener {
-                    eventClickItemPokemon?.onClickItemPokemon(item.name)
+                    eventClickItemPokemon?.onClickItemPokemon(item.getPokemonNumber())
                 }
             }
         }

@@ -13,7 +13,7 @@ import kotlin.random.Random
 
 //It will be used to list all pokemon items, since 2 different apis are being used
 @Parcelize
-data class FullPokemon (
+data class FullPokemon(
     var number: Int = 0,
     var height: Int = 0,
     var weight: Int = 0,
@@ -39,7 +39,7 @@ data class FullPokemon (
     val special_defense: Int = Random.nextInt(maxSpecialDefense),
     val speed: Int = Random.nextInt(maxSpeed),
     val exp: Int = Random.nextInt(maxExp)
-): Parcelable {
+) : Parcelable {
 
     fun getNumberString(): String = "Nº ${number.toString().padStart(3, '0')}"
     fun getHeightString(): String = String.format("%.1f m", height.toFloat() / 10)
@@ -53,13 +53,20 @@ data class FullPokemon (
     fun getSpeedString(): String = "$speed/$maxSpeed"
     fun getExpString(): String = "$exp/$maxExp"
 
+    fun getPokemonTypesString() = types.map { it.type.name }.toMutableList()
+
     companion object {
         val maxHp = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_hp)
-        val maxAttack = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_attack)
-        val maxDefense = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_defense)
-        val maxSpecialAttack = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_special_attack)
-        val maxSpecialDefense = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_special_defense)
-        val maxSpeed = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_speed)
+        val maxAttack =
+            GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_attack)
+        val maxDefense =
+            GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_defense)
+        val maxSpecialAttack =
+            GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_special_attack)
+        val maxSpecialDefense =
+            GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_special_defense)
+        val maxSpeed =
+            GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_speed)
         val maxExp = GiuPokedexUtils.globalActivity.resources.getInteger(R.integer.stats_max_exp)
     }
 }
