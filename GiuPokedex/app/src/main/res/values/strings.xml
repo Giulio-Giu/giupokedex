@@ -6,15 +6,12 @@
 
     <!-- Shared Preferences -->
     <string name="PREF_APP_NAME">giupokedex</string>
-    <string name="PREF_LIST_FAVORITES">list_favorites</string>
     <string name="PREF_DEVICE_ID">device_id</string>
     <!-- Shared Preferences -->
 
     <!-- Search -->
     <string name="page_title">Giu Pokedex</string>
     <string name="search_hint">Number or name. Ex.: bulbasaur or 1</string>
-    <string name="favorite_title">Favorite</string>
-    <string name="favorite_content_description">Favorite white icon</string>
     <string name="search_title">Search</string>
     <string name="search_content_description">Search white icon</string>
     <!-- Search -->

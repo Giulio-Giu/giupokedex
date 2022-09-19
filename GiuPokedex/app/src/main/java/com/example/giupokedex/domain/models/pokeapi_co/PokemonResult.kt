@@ -10,12 +10,6 @@ data class PokemonResult(
 ) : Parcelable {
     fun getImageUrl(): String =
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getPokemonNumber()}.png"
-// {
-//        return url.let {
-//            val number = it.split("/".toRegex()).dropLast(1).last()
-//            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$number.png"
-//        }
-//    }
 
     fun getPokemonNumber(): String = url.split("/".toRegex()).dropLast(1).last()
 

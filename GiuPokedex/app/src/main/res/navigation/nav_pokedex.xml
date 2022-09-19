@@ -11,13 +11,6 @@
         android:label="FragmentHome"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragmentHome_to_favoriteFragment"
-            app:destination="@id/fragmentFavorite"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_fragmentHome_to_pokemonDetailFragment"
             app:destination="@id/fragmentPokemonDetail"
             app:enterAnim="@anim/slide_in_right"
@@ -45,34 +38,5 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_fragmentPokemonDetail_to_favoriteFragment"
-            app:destination="@id/fragmentFavorite"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragmentFavorite"
-        android:name="com.example.giupokedex.presentation.ui.fragments.FavoriteFragment"
-        android:label="FragmentFavorite"
-        tools:layout="@layout/fragment_favorite">
-        <action
-            android:id="@+id/action_fragmentFavorite_to_homeFragment"
-            app:destination="@id/fragmentHome"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_fragmentFavorite_to_pokemonDetailFragment"
-            app:destination="@id/fragmentPokemonDetail"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
 </navigation>

@@ -10,6 +10,5 @@ data class AbilityDetail(
     var name: String = "",
     var effect_entries: List<AbilityEffect> = emptyList(),
 ) : Parcelable {
-    fun getAbilityEffect() = effect_entries[1].effect //[1] is in english
-    fun getAbilityShortEffect() = effect_entries[1].short_effect //[1] is in english
+    fun getAbilityEffect() = effect_entries.first { it.language.name.equals("en", true) }
 }

@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AbilityEffectResponse(
     var effect: String? = null,
-    var short_effect: String? = null
+    var short_effect: String? = null,
+    var language: AbilityEffectLanguageResponse? = null,
 ) : Parcelable

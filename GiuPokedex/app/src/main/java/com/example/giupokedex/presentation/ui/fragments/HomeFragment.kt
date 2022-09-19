@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.giupokedex.common.keys.HomeActivityKeys
 import com.example.giupokedex.common.utils.ListenerEvents
 import com.example.giupokedex.common.utils.ObservableEvents
 import com.example.giupokedex.databinding.FragmentHomeBinding
@@ -54,6 +55,11 @@ class HomeFragment : Fragment(), ObservableEvents, ListenerEvents {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        homeActivity.changeIcon(isDetailOrSearch = false)
+    }
+
     private fun initView() {
         homeActivity.showHideProgressBar(true)
         viewBinding.recyclerViewPokemons.adapter = homePokemonListAdapter
@@ -66,9 +72,10 @@ class HomeFragment : Fragment(), ObservableEvents, ListenerEvents {
 
         homePokemonListAdapter.eventClickItemPokemon = object : EventClickItemPokemon {
             override fun onClickItemPokemon(query: String) {
-                findNavController().navigate(
-                    HomeFragmentDirections.actionFragmentHomeToPokemonDetailFragment(query)
-                )
+                homeActivity.doTransaction(HomeActivityKeys.PokemonDetailFragment.toString(), query)
+//                findNavController().navigate(
+//                    HomeFragmentDirections.actionFragmentHomeToPokemonDetailFragment(query)
+//                )
             }
         }
     }

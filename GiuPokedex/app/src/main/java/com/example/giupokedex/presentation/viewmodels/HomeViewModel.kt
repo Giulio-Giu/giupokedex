@@ -34,13 +34,17 @@ class HomeViewModel(
             }
         }
 
+    private val _shouldShowAbilityMutableLiveData = MutableLiveData<Boolean>()
+    val shouldShowAbility: LiveData<Boolean>
+    get() = _shouldShowAbilityMutableLiveData
+
     private val _getAbilityDetailMutableLiveData = MutableLiveData<AbilityDetail>()
     val getAbilityDetailLiveData: LiveData<AbilityDetail>
         get() = _getAbilityDetailMutableLiveData
 
-    private val _getStatDetailMutableLiveData = MutableLiveData<StatDetail>()
-    val getStatDetailLiveData: LiveData<StatDetail>
-        get() = _getStatDetailMutableLiveData
+//    private val _getStatDetailMutableLiveData = MutableLiveData<StatDetail>()
+//    val getStatDetailLiveData: LiveData<StatDetail>
+//        get() = _getStatDetailMutableLiveData
 
     private val _getTypeDetailMutableLiveData = MutableLiveData<TypeDetail>()
     val getTypeDetailLiveData: LiveData<TypeDetail>
@@ -60,7 +64,6 @@ class HomeViewModel(
     fun searchPokemon(idOrName: String) {
         viewModelScope.launch {
             val pokemonResult = pokedexUseCase.invokePokemon(idOrName)
-//            _getPokemonMutableLiveData.value = pokemonResult
             _getPokemonMutableLiveData.postValue(pokemonResult)
         }
 
@@ -75,26 +78,16 @@ class HomeViewModel(
         }
     }
 
-    /*fun searchGlitchPokemon(idOrName: String) {
-        viewModelScope.launch {
-            val glitchPokemonResult = pokedexUseCase.invokeGlitchPokemon(idOrName)
-//            _getGlitchPokemonMutableLiveData.value = glitchPokemonResult
-            _getGlitchPokemonMutableLiveData.postValue(glitchPokemonResult[0])
-        }
-    }*/
-
     fun searchAbilityDetail(id: String) {
         viewModelScope.launch {
+            _shouldShowAbilityMutableLiveData.postValue(true)
             val abilityResult = pokedexUseCase.invokeAbilityDetail(id)
             _getAbilityDetailMutableLiveData.postValue(abilityResult)
         }
     }
 
-    fun searchStatDetail(id: String) {
-        viewModelScope.launch {
-            val statResult = pokedexUseCase.invokeStatDetail(id)
-            _getStatDetailMutableLiveData.postValue(statResult)
-        }
+    fun dontShowAbility(){
+        _shouldShowAbilityMutableLiveData.postValue(false)
     }
 
     fun searchTypeDetail(id: String) {

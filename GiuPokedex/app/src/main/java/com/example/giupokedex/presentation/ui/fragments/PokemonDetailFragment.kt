@@ -1,5 +1,6 @@
 package com.example.giupokedex.presentation.ui.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.giupokedex.R
+import com.example.giupokedex.common.keys.HomeActivityKeys
 import com.example.giupokedex.common.utils.GiuPokedexUtils.hide
 import com.example.giupokedex.common.utils.GiuPokedexUtils.show
 import com.example.giupokedex.common.utils.ListenerEvents
@@ -29,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View.OnClickListener {
     private lateinit var query: String
     private val args: PokemonDetailFragmentArgs by navArgs()
+    var shouldShow = false
 
     private var _binding: FragmentPokemonDetailBinding? = null
     private val viewBinding get() = _binding!!
@@ -66,6 +69,13 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
         initListeners()
     }
 
+    override fun onDestroyView() {
+        homeActivity.homeViewModel.dontShowAbility()
+        homeActivity.lastFragment = HomeActivityKeys.HomeFragment.toString()
+        _binding = null
+        super.onDestroyView()
+    }
+
     override fun onClick(p0: View?) {
         // TODO("click images, types...")
     }
@@ -85,6 +95,10 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
         homeActivity.homeViewModel.getAbilityDetailLiveData.observe(
             viewLifecycleOwner
         ) { showAbility(it) }
+
+        homeActivity.homeViewModel.shouldShowAbility.observe(
+            viewLifecycleOwner
+        ) { shouldShow = it }
     }
 
     override fun initListeners() {
@@ -97,13 +111,17 @@ class PokemonDetailFragment : Fragment(), ObservableEvents, ListenerEvents, View
 
     private fun showAbility(ability: AbilityDetail) {
         homeActivity.showHideProgressBar(false)
-        MaterialAlertDialogBuilder(homeActivity)
-            .setTitle(ability.name)
-            .setMessage(ability.getAbilityEffect())
-            .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+
+        if (shouldShow) {
+            MaterialAlertDialogBuilder(viewBinding.root.context)
+                .setTitle(ability.name)
+                .setMessage(ability.getAbilityEffect().effect)
+                .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
+                    dialog.dismiss()
+                    dialog.cancel()
+                }
+                .show()
+        }
     }
 
     private fun verifyResponse(pair: Pair<Pokemon?, GlitchPokemon?>) {

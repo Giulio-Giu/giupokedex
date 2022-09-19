@@ -8,11 +8,4 @@
         android:title="@string/search_title"
         android:contentDescription="@string/search_content_description"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/baseline_favorite_white_24"
-        android:title="@string/favorite_title"
-        android:contentDescription="@string/favorite_content_description"
-        app:showAsAction="ifRoom" />
 </menu>
