@@ -1,3 +1,48 @@
 <resources>
+    <!-- Commons -->
     <string name="app_name">GiuPokedex</string>
+    <string name="content_description_logo">Logo with the pokemon\'s pokeball symbol and with the text: "Giu Pokedex"</string>
+    <string name="btn_ok">OK</string>
+    <string name="error_title">Error!</string>
+    <string name="default_error_message">Oops, something went wrong, please try again later.</string>
+
+    <!-- Shared Preferences -->
+    <string name="PREF_APP_NAME">giupokedex</string>
+    <string name="PREF_DEVICE_ID">device_id</string>
+    <string name="FULL_POKEMON">full_pokemon</string>
+    <!-- Shared Preferences -->
+
+    <!-- Search -->
+    <string name="page_title">Giu Pokedex</string>
+    <string name="search_hint">Number or name. Ex.: bulbasaur or 1</string>
+    <string name="search_title">Search</string>
+    <string name="search_content_description">Search white icon</string>
+    <!-- Search -->
+
+    <!-- Fragment Pokemon Detail -->
+    <string name="height_title">Height:</string>
+    <string name="weight_title">Weight:</string>
+    <string name="type_title">Types</string>
+    <string name="pictures_title">Pictures</string>
+    <string name="ability_title">Abilities</string>
+    <string name="specie_title">Specie:</string>
+
+    <string name="stats_title">Stats</string>
+    <string name="stats_hp_title">HP</string>
+    <string name="stats_attack_title">Attack</string>
+    <string name="stats_defense_title">Defense</string>
+    <string name="stats_special_attack_title">Special Attack</string>
+    <string name="stats_special_defense_title">Special Defense</string>
+    <string name="stats_speed_title">Speed</string>
+    <string name="stats_exp_title">EXP</string>
+    <string name="pokemon_starter">STARTER</string>
+    <string name="pokemon_legendary">LEGENDARY</string>
+    <string name="pokemon_mythical">MYTHICAL</string>
+    <string name="pokemon_ultra_beast">ULTRA BEAST</string>
+    <string name="pokemon_mega">MEGA</string>
+
+    <string name="no_data_message">Oops, your search yielded no result</string>
+
+    <string name="custom_dialog_type_pokemon_title">%1s\'s Pokemons:</string>
+    <!-- Fragment Pokemon Detail -->
 </resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cd_type_pokemon_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingVertical="@dimen/margin_xsmall">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cd_type_pokemon_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Eletric's Pokemons:" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_cd_type_pokemon"
+        android:layout_width="370dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="@dimen/margin_xsmall"
+        android:background="@color/white_12"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/margin_normal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/cd_type_pokemon_btn_ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cd_type_pokemon_title"
+        tools:listitem="@layout/item_type_pokemons" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cd_type_pokemon_btn_ok"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/btn_ok"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_cd_type_pokemon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

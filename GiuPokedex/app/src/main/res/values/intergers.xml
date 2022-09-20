@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="PAGING_SIZE">20</integer>
+    <!-- Stats Max values -->
+    <integer name="stats_max_hp">300</integer>
+    <integer name="stats_max_attack">300</integer>
+    <integer name="stats_max_defense">300</integer>
+    <integer name="stats_max_special_attack">300</integer>
+    <integer name="stats_max_special_defense">300</integer>
+    <integer name="stats_max_speed">300</integer>
+    <integer name="stats_max_exp">1000</integer>
+    <!-- Stats Max values -->
+</resources>
