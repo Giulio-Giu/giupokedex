@@ -3,6 +3,8 @@
     <string name="app_name">GiuPokedex</string>
     <string name="content_description_logo">Logo with the pokemon\'s pokeball symbol and with the text: "Giu Pokedex"</string>
     <string name="btn_ok">OK</string>
+    <string name="error_title">Error!</string>
+    <string name="default_error_message">Oops, something went wrong, please try again later.</string>
 
     <!-- Shared Preferences -->
     <string name="PREF_APP_NAME">giupokedex</string>

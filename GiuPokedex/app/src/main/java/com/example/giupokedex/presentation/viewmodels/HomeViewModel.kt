@@ -1,8 +1,6 @@
 package com.example.giupokedex.presentation.viewmodels
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.example.giupokedex.R
 import com.example.giupokedex.domain.models.pokeapi_co.ListPokemon
 import com.example.giupokedex.domain.models.pokeapi_co.detail.AbilityDetail
 import com.example.giupokedex.domain.models.pokeapi_co.detail.TypeDetail
@@ -12,8 +10,7 @@ import com.example.giupokedex.domain.usecases.abs.PokedexUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val pokedexUseCase: PokedexUseCase,
-    private val application: Application
+    private val pokedexUseCase: PokedexUseCase
 ) : ViewModel() {
     /** Region LiveData */
     private val _getListPokemonMutableLiveData = MutableLiveData<ListPokemon>()
@@ -46,20 +43,16 @@ class HomeViewModel(
     val getAbilityDetailLiveData: LiveData<AbilityDetail>
         get() = _getAbilityDetailMutableLiveData
 
-//    private val _getStatDetailMutableLiveData = MutableLiveData<StatDetail>()
-//    val getStatDetailLiveData: LiveData<StatDetail>
-//        get() = _getStatDetailMutableLiveData
-
     private val _getTypeDetailMutableLiveData = MutableLiveData<TypeDetail>()
     val getTypeDetailLiveData: LiveData<TypeDetail>
         get() = _getTypeDetailMutableLiveData
 
     /** Region serviceCalls */
-    fun getListPokemon(page: Int) {
+    fun getListPokemon(page: Int, offset: Int) {
         viewModelScope.launch {
             val homePokemonList = pokedexUseCase.invokeListPokemon(
                 page,
-                application.resources.getInteger(R.integer.PAGING_SIZE)
+                offset
             )
             _getListPokemonMutableLiveData.postValue(homePokemonList)
         }

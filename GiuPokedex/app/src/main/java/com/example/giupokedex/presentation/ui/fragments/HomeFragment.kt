@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giupokedex.common.keys.HomeActivityKeys
@@ -73,9 +72,6 @@ class HomeFragment : Fragment(), ObservableEvents, ListenerEvents {
         homePokemonListAdapter.eventClickItemPokemon = object : EventClickItemPokemon {
             override fun onClickItemPokemon(query: String) {
                 homeActivity.doTransaction(HomeActivityKeys.PokemonDetailFragment.toString(), query)
-//                findNavController().navigate(
-//                    HomeFragmentDirections.actionFragmentHomeToPokemonDetailFragment(query)
-//                )
             }
         }
     }

@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 fun getHomeViewModelModules() = module {
     viewModel {
-        HomeViewModel(pokedexUseCase = get(), application = get())
+        HomeViewModel(pokedexUseCase = get())
     }
 }

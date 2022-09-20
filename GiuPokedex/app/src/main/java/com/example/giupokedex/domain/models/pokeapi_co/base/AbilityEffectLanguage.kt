@@ -1,7 +1,7 @@
 package com.example.giupokedex.domain.models.pokeapi_co.base
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AbilityEffectLanguage (

@@ -16,9 +16,9 @@ class ServicePokeGlitchApi {
                 .addInterceptor(HttpLoggingInterceptor().also {
                     it.level = HttpLoggingInterceptor.Level.BODY
                 })
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .readTimeout(40, TimeUnit.SECONDS)
+                .writeTimeout(40, TimeUnit.SECONDS)
                 .build()
         }
     }

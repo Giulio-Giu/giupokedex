@@ -146,7 +146,7 @@ class HomeActivity : AppCompatActivity(), ListenerEvents, Toolbar.OnMenuItemClic
     }
 
     fun getListPokemons(page: Int) {
-        homeViewModel.getListPokemon(page)
+        homeViewModel.getListPokemon(page, resources.getInteger(R.integer.PAGING_SIZE))
     }
 
     fun doTransaction(nextFragment: String, query: String = "") {

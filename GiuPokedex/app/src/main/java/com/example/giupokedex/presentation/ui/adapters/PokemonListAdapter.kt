@@ -10,7 +10,6 @@ import com.example.giupokedex.R
 import com.example.giupokedex.common.utils.GiuPokedexUtils
 import com.example.giupokedex.common.utils.GiuPokedexUtils.show
 import com.example.giupokedex.databinding.ItemPokemonBinding
-import com.example.giupokedex.databinding.ItemRecyclerLoadingBinding
 import com.example.giupokedex.domain.models.pokeapi_co.PokemonResult
 import com.example.giupokedex.presentation.eventclick.EventClickItemPokemon
 
